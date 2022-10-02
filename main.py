@@ -7,7 +7,10 @@ import pygame
 import os
 
 import core
+import events_core as ec
+from constants import *
 import player
+import textbox_objects
 import dungeon_room as dr
 
 #Constants
@@ -84,6 +87,100 @@ def display_room(screen, room, tiles, tile_size):
     for r in range(room.room_height):
         for c in range(room.room_width):
             screen.blit(tiles[room.tiles[r][c]],(c * tile_size, r * tile_size))
+            
+class MainManager():
+    def __init__(self):
+        #Load all Sprites
+        self.sprites = load_all_sprites()
+        
+        #Load Tilesets
+        self.basic_tilemap_image = pygame.image.load(os.path.join('tilesets', 'til_basic_tiles.png'))
+        self.basic_tiles = strip_from_sheet(self.basic_tilemap_image, (0, 0), (core.TILE_SIZE, core.TILE_SIZE), 2, 2)
+        
+        #Create an Input Manager
+        self.im = core.InputManager()
+        
+        #Create an Objects List
+        self.objects = []
+
+        #Set the Game State
+        self.game_state = GAME_STATES.OVERWORLD.value
+        self.sub_state = GAME_STATES.NULL_STATE.value
+
+        #Set the Text Speed
+        self.text_speed	= TEXT_MEDIUM
+
+        #Set REQSS Variables
+        self.event_queue = [] #A list of base level simultaneous events
+        self.event_stack = [] #A list of currently ongoing events arranged in layers
+        self.stack_index = 0  #Denotes where the currently running event is in the stack
+        
+        #Create a Test Room
+        self.test_room = dr.DungeonRoom(40, 20)
+        
+        #Create the Player
+        self.main_player = core.instance_create(self, 32, 32, player.Player())
+        self.textbox = core.instance_create(self, 0, 0, textbox_objects.obj_textbox())
+        
+        #Assign a Room Layout
+        for r in range(20):
+            for c in range(40):
+                if (r == 0 or c == 0 or r == 19 or c == 39):
+                    self.test_room.set_tile(c, r, 1, 1)
+        
+        #Assign the Current Room
+        self.current_room = self.test_room
+
+        #Add a Test Dialogue
+        messageToPrint = [[
+									"Hi! Welcome to our Game!",
+									"This is a test message. Did it work?",
+								 ]]
+
+        core.scr_add_event_to_queue(self, EVENTS_LIST.printText.value, [messageToPrint])
+
+    def update(self):
+        #Update Events
+        
+        #Reset the Stack Index
+        self.stack_index = 0
+        
+        #Is there An Event In the Queue?
+        if len(self.event_queue) > 0:
+        
+            #Is there A Sub Event to Run?
+            if len(self.event_stack) > 0:
+            
+                #Run the Sub Event
+                self.event_stack[self.stack_index] = ec.scr_run_event(self, self.event_stack[self.stack_index])
+                
+                #Is the Sub Event Over?
+                if self.event_stack[0][EVENT_DONE]:
+                
+                    #Remove the Sub Event
+                    self.event_stack.pop(0)
+                    
+                    #Are there More Sub Events?
+                    if len(self.event_stack) > 0:
+                    
+                        #Progress the Previous Sub Event
+                        self.event_stack[0][EVENT_CONTINUE_SCRIPT] += 1
+                    
+                    else:
+                        #Progress the Main Event
+                        self.event_queue[0][EVENT_CONTINUE_SCRIPT] += 1
+                    
+                
+            
+            else:
+                #Run the Main Event
+                self.event_queue[0] = ec.scr_run_event(self, self.event_queue[0])
+
+                #Is the Main Event Over?
+                if self.event_queue[0][EVENT_DONE]:
+                
+                    #Remove the Event From the Queue
+                    self.event_queue.pop(0)    
 
 
 def engine_main():
@@ -112,34 +209,7 @@ def engine_main():
     #Set the PyGame Clock
     clock = pygame.time.Clock()
     
-    #Load all Sprites
-    sprites = load_all_sprites()
-    
-    #Load Tilesets
-    basic_tilemap_image = pygame.image.load(os.path.join('tilesets', 'til_basic_tiles.png'))
-    basic_tiles = strip_from_sheet(basic_tilemap_image, (0, 0), (core.TILE_SIZE, core.TILE_SIZE), 2, 2)
-    
-    #Create an Input Manager
-    input_manager = core.InputManager()
-    
-    #Create an Objects List
-    objects = []
-    
-    #Create a Test Room
-    test_room = dr.DungeonRoom(40, 23)
-    
-    #Create the Player
-    main_player = core.instance_create(32, 32, player.Player())
-    objects.append(main_player)
-    
-    #Assign a Room Layout
-    for r in range(23):
-        for c in range(40):
-            if (r == 0 or c == 0 or r == 22 or c == 39):
-                test_room.set_tile(c, r, 1, 1)
-    
-    #Assign the Current Room
-    current_room = test_room
+    main = MainManager()
     
     #Main Loop
     while running:
@@ -158,71 +228,92 @@ def engine_main():
             #Event: INPUT
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_LEFT:
-                    if input_manager.left != 1:
-                        input_manager.left_pressed = 1
+                    if main.im.left != 1:
+                        main.im.left_pressed = 1
                     
-                    input_manager.left = 1
+                    main.im.left = 1
                 else:
-                    input_manager.left = 0
-                    input_manager.left_pressed = 0
+                    main.im.left = 0
+                    main.im.left_pressed = 0
 
                 if event.key==pygame.K_RIGHT:
-                    if input_manager.right != 1:
-                        input_manager.right_pressed = 1
+                    if main.im.right != 1:
+                        main.im.right_pressed = 1
                     
-                    input_manager.right = 1
+                    main.im.right = 1
                 else:
-                    input_manager.right = 0
-                    input_manager.right_pressed = 0
+                    main.im.right = 0
+                    main.im.right_pressed = 0
 
                 if event.key==pygame.K_UP:
-                    if input_manager.up != 1:
-                        input_manager.up_pressed = 1
+                    if main.im.up != 1:
+                        main.im.up_pressed = 1
                     
-                    input_manager.up = 1
+                    main.im.up = 1
                 else:
-                    input_manager.up = 0
-                    input_manager.up_pressed = 0
+                    main.im.up = 0
+                    main.im.up_pressed = 0
 
                 if event.key==pygame.K_DOWN:
-                    if input_manager.down != 1:
-                        input_manager.down_pressed = 1
+                    if main.im.down != 1:
+                        main.im.down_pressed = 1
                     
-                    input_manager.down = 1
+                    main.im.down = 1
                 else:
-                    input_manager.down = 0
-                    input_manager.down_pressed = 0
+                    main.im.down = 0
+                    main.im.down_pressed = 0
+                
+                if event.key==pygame.K_z:
+                    if main.im.a != 1:
+                        main.im.a_pressed = 1
+                    
+                    main.im.a = 1
+                else:
+                    main.im.a = 0
+                    main.im.a_pressed = 0
+
+                if event.key==pygame.K_x:
+                    if main.im.b != 1:
+                        main.im.b_pressed = 1
+                    
+                    main.im.b = 1
+                else:
+                    main.im.b = 0
+                    main.im.b_pressed = 0
                     
             if event.type==pygame.KEYUP:
                 if event.key==pygame.K_LEFT:
-                    input_manager.left_pressed = 0
-                    input_manager.left = 0
+                    main.im.left_pressed = 0
+                    main.im.left = 0
                     
                 if event.key==pygame.K_RIGHT:
-                    input_manager.right_pressed = 0
-                    input_manager.right = 0
+                    main.im.right_pressed = 0
+                    main.im.right = 0
                     
                 if event.key==pygame.K_UP:
-                    input_manager.up_pressed = 0
-                    input_manager.up = 0
+                    main.im.up_pressed = 0
+                    main.im.up = 0
                     
                 if event.key==pygame.K_DOWN:
-                    input_manager.down_pressed = 0
-                    input_manager.down = 0
+                    main.im.down_pressed = 0
+                    main.im.down = 0
 
                 
 
         #Run Update Logic
-        for i in range(len(objects)):
-            objects[i].update(current_room, input_manager)
+        main.update()
+
+        for i in range(len(main.objects)):
+            if (i < len(main.objects)):
+                main.objects[i].update(main)
         
         #Clear the Old Screen
         screen.fill(pygame.Color('#ffefff'))
 
         #Draw Graphics
-        display_room(screen, current_room, basic_tiles, core.TILE_SIZE)
+        display_room(screen, main.current_room, main.basic_tiles, core.TILE_SIZE)
         
-        draw_sprites(screen, objects, sprites)
+        draw_sprites(screen, main.objects, main.sprites)
         
         #Update the Display
         pygame.display.update()
