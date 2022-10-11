@@ -52,7 +52,7 @@ class obj_textbox(Object):
 			
 			self.message = self.formatted_message
 			self.x_offset = 8
-			self.y_offset = 16
+			self.y_offset = 8
 			self.num_paragraphs = array_length(self.formatted_message)
 			self.num_lines = array_length(self.formatted_message[self.current_paragraph])
 			
@@ -159,7 +159,6 @@ class obj_textbox(Object):
 		
 				
 		return main
-	
 	
 class obj_textbox_cursor(Object):
 	def __init__(self):

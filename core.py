@@ -121,3 +121,13 @@ def scr_add_event_to_stack(main, event, eventParameters):
 	main.event_stack.insert(0, [event, eventParameters, 0, False])
 	
 	return main
+
+def scr_overlap(x1, y1, w1, h1, x2, y2, w2, h2):
+    return not (x1 + w1 < x2
+                or x1 > x2 + w2
+                or y1 > y2 + h2
+                or y1 + h1 < y2)
+
+
+def scr_collision(obj1, obj2):
+    return scr_overlap(obj1.x, obj1.y, 32, 32, obj2.x, obj2.y, 32, 32)

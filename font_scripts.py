@@ -74,7 +74,7 @@ def scr_draw_string(main, s_x, s_y, string, centering):
 def scr_place_object_text(main, obj, textArray, xoffset, yoffset, centering, textToDraw):
 
 	if (len(textArray) == 0):
-	
+
 		textArray = scr_draw_string(main, obj.x + xoffset,  obj.y + yoffset, scrTranslateString(textToDraw), centering)
 	
 	

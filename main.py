@@ -10,7 +10,9 @@ import core
 import events_core as ec
 from constants import *
 import player
+import enemy
 import textbox_objects
+import title_menu
 import dungeon_room as dr
 
 #Constants
@@ -95,7 +97,7 @@ class MainManager():
         
         #Load Tilesets
         self.basic_tilemap_image = pygame.image.load(os.path.join('tilesets', 'til_basic_tiles.png'))
-        self.basic_tiles = strip_from_sheet(self.basic_tilemap_image, (0, 0), (core.TILE_SIZE, core.TILE_SIZE), 2, 2)
+        self.basic_tiles = strip_from_sheet(self.basic_tilemap_image, (0, 0), (core.TILE_SIZE, core.TILE_SIZE), 2, 3)
         
         #Create an Input Manager
         self.im = core.InputManager()
@@ -115,31 +117,19 @@ class MainManager():
         self.event_stack = [] #A list of currently ongoing events arranged in layers
         self.stack_index = 0  #Denotes where the currently running event is in the stack
         
-        #Create a Test Room
-        self.test_room = dr.DungeonRoom(40, 20)
+        self.current_room = -1
+        self.player_weapon = -1
         
-        #Create the Player
-        self.main_player = core.instance_create(self, 32, 32, player.Player())
         self.textbox = core.instance_create(self, 0, 0, textbox_objects.obj_textbox())
-        
-        #Assign a Room Layout
-        for r in range(20):
-            for c in range(40):
-                if (r == 0 or c == 0 or r == 19 or c == 39):
-                    self.test_room.set_tile(c, r, 1, 1)
-        
-        #Assign the Current Room
-        self.current_room = self.test_room
+        self.textbox.visible = False
 
-        #Add a Test Dialogue
-        messageToPrint = [[
-									"Hi! Welcome to our Game!",
-									"This is a test message. Did it work?",
-								 ]]
-
-        core.scr_add_event_to_queue(self, EVENTS_LIST.printText.value, [messageToPrint])
+        core.instance_create(self, 0, 0, title_menu.obj_Title_Menu())
+        
 
     def update(self):
+        if (self.current_room != -1 and self.current_room.num_enemies == 0 and not self.current_room.exit_exists):
+            self.current_room.create_exit()
+
         #Update Events
         
         #Reset the Stack Index
@@ -181,6 +171,20 @@ class MainManager():
                 
                     #Remove the Event From the Queue
                     self.event_queue.pop(0)    
+
+    def create_run(self):
+        #Create a Test Room
+        self.test_room = dr.DungeonRoom(self, 40, 20, 1)
+        
+        #Create the Player
+        self.main_player = core.instance_create(self, 32, 32, player.Player("Lucas"))
+
+        self.textbox.visible = True
+
+        #Assign the Current Room
+        self.current_room = self.test_room
+
+        self.main_player.goto_start_tile(self)
 
 
 def engine_main():
@@ -311,7 +315,8 @@ def engine_main():
         screen.fill(pygame.Color('#ffefff'))
 
         #Draw Graphics
-        display_room(screen, main.current_room, main.basic_tiles, core.TILE_SIZE)
+        if (main.current_room != -1):
+            display_room(screen, main.current_room, main.basic_tiles, core.TILE_SIZE)
         
         draw_sprites(screen, main.objects, main.sprites)
         
