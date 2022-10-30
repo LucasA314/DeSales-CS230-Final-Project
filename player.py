@@ -10,7 +10,7 @@ import core
 from font_scripts import scr_place_object_text
 import weapons
 import dungeon_room as dr
-from weapons import obj_Weapon
+from weapons import obj_Bullet, obj_Weapon
 
 class Player(core.Object):
     def __init__(self, name):
@@ -38,6 +38,15 @@ class Player(core.Object):
         self.direction = [1, 0]
 
         self.hud = core.instance_create(main, 0, 0, Player_HUD(self))
+
+        self.character_class = "warrior"
+
+        self.skills = []
+        self.slam_active = False
+        self.bashing = False
+        self.blood_striking = False
+        self.shield_blocking = False
+        self.counter_attacking = False
         
     def update(self, main):
         core.Object.update(self, main)
@@ -48,8 +57,13 @@ class Player(core.Object):
         moveDown = int(main.im.down)
         
         if (not self.attacking and main.sub_state != GAME_STATES.DIALOGUE.value):
-            self.hsp = self.walkSpeed * (moveLeft + moveRight)
-            self.vsp = self.walkSpeed * (moveUp + moveDown)
+            if ((self.have_skill("beserking") and self.health < self.max_health * 0.5)
+                or (self.have_skill("rage") and self.get_skill("rage").activation > 0)):
+                self.hsp = (self.walkSpeed * 2) * (moveLeft + moveRight)
+                self.vsp = (self.walkSpeed * 2) * (moveUp + moveDown)
+            else:
+                self.hsp = self.walkSpeed * (moveLeft + moveRight)
+                self.vsp = self.walkSpeed * (moveUp + moveDown)
         else:
             self.hsp = 0
             self.vsp = 0
@@ -58,9 +72,9 @@ class Player(core.Object):
         #Horizontal Collisions
         if (self.hsp > 0):
             collision_found = False
-            i = 0
+            i = 1
 
-            while (i <= 32 and not collision_found):
+            while (i < 32 and not collision_found):
 
                 if (core.tile_at_coord(main.current_room.movement, self.x + 32 + self.hsp, self.y + i) == 1):
                     while (core.tile_at_coord(main.current_room.movement, self.x + 32 + 1, self.y + i) == 0):
@@ -74,9 +88,9 @@ class Player(core.Object):
                 
         elif (self.hsp < 0):
             collision_found = False
-            i = 0
+            i = 1
 
-            while (i <= 32 and not collision_found):
+            while (i < 32 and not collision_found):
 
                 if (core.tile_at_coord(main.current_room.movement, self.x + self.hsp, self.y + i) == 1):
                     while (core.tile_at_coord(main.current_room.movement, self.x - 1, self.y + i) == 0):
@@ -94,9 +108,9 @@ class Player(core.Object):
         #Vertical Collisions
         if (self.vsp > 0):
             collision_found = False
-            i = 0
+            i = 1
 
-            while (i <= 32 and not collision_found):
+            while (i < 32 and not collision_found):
 
                 if (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + 32 + self.vsp) == 1):
                     while (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + 32 + 1) == 0):
@@ -110,9 +124,9 @@ class Player(core.Object):
 
         elif (self.vsp < 0):
             collision_found = False
-            i = 0
+            i = 1
 
-            while (i <= 32 and not collision_found):
+            while (i < 32 and not collision_found):
 
                 if (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + self.vsp) == 1):
                     while (core.tile_at_coord(main.current_room.movement, self.x + i, self.y - 1) == 0):
@@ -140,18 +154,45 @@ class Player(core.Object):
 
             weapon = -1
 
-            if (self.direction[0] == 1):
-                weapon = core.instance_create(main, self.x + 24, self.y, obj_Weapon())
-                weapon.image_index = 0
-            elif (self.direction[0] == -1):
-                weapon = core.instance_create(main, self.x - 24, self.y, obj_Weapon())
-                weapon.image_index = 1
-            elif (self.direction[1] == 1):
-                weapon = core.instance_create(main, self.x, self.y + 24, obj_Weapon())
-                weapon.image_index = 2
-            elif (self.direction[1] == -1):
-                weapon = core.instance_create(main, self.x, self.y - 24, obj_Weapon())
-                weapon.image_index = 3
+            if (self.character_class == "warrior"):
+                if (self.have_skill("whirlwind") and self.get_skill("whirlwind").cooldown == 0):
+                    self.get_skill("whirlwind").cooldown = self.get_skill("whirlwind").max_cooldown
+                    weapon = self.attack(main, "spr_whirlwind")
+                elif (self.have_skill("shield_bash") and self.get_skill("shield_bash").cooldown == 0):
+                    self.get_skill("shield_bash").cooldown = self.get_skill("shield_bash").max_cooldown
+                    weapon = self.attack(main, "spr_shield_bash")
+                elif (self.have_skill("slam") and self.get_skill("slam").cooldown == 0 and not self.slam_active):
+                    self.slam_active = True
+                elif (self.have_skill("rage") and self.get_skill("rage").cooldown == 0):
+                    self.get_skill("rage").cooldown = self.get_skill("rage").max_cooldown
+                    self.get_skill("rage").activation = self.get_skill("rage").max_activation
+                elif (self.have_skill("shield_block") and self.get_skill("shield_block").cooldown == 0):
+                    self.get_skill("shield_block").cooldown = self.get_skill("shield_block").max_cooldown
+                    self.get_skill("shield_block").activation = self.get_skill("shield_block").max_activation
+                    self.shield_blocking = True
+                elif (self.have_skill("counter_attack") and self.get_skill("counter_attack").cooldown == 0):
+                    self.get_skill("counter_attack").cooldown = self.get_skill("counter_attack").max_cooldown
+                    self.get_skill("counter_attack").activation = self.get_skill("counter_attack").max_activation
+                    self.counter_attacking = True
+                else:
+                    if (self.have_skill("blood_strike") and self.get_skill("blood_strike").cooldown == 0):
+                        self.get_skill("blood_strike").cooldown = self.get_skill("blood_strike").max_cooldown
+                        self.blood_striking = True
+
+                    weapon = self.attack(main, "spr_sword")
+            elif (self.character_class == "ranger"):
+
+                if (self.have_skill("multi_shot") and self.get_skill("multi_shot").cooldown == 0):
+                    self.get_skill("multi_shot").cooldown = self.get_skill("multi_shot").max_cooldown
+                    
+                    #????????????
+                else:
+                    weapon = self.ranged_attack(main, "spr_ranged_attack", "spr_bullet")
+
+            elif (self.characer_class == "wizard"):
+
+                
+                weapon = self.attack(main, "spr_staff")
 
             weapon.owner = self
             main.player_weapon = weapon
@@ -179,6 +220,16 @@ class Player(core.Object):
         else:
             self.visible = True
 
+        #Update Skill Cooldowns
+        self.reduce_cooldowns(1)
+        self.reduce_activations(1)
+
+        if (self.have_skill("shield_block") and self.get_skill("shield_block").activation == 0):
+            self.shield_blocking = False
+
+        if (self.have_skill("counter_attack") and self.get_skill("counter_attack").activation == 0):
+            self.counter_attacking = False
+
 
             
     
@@ -188,9 +239,76 @@ class Player(core.Object):
                     if (main.current_room.tiles[r][c] == 3):
                         self.x = c * core.TILE_SIZE
                         self.y = r * core.TILE_SIZE
+    
 
-                        #main.current_room.set_tile(c, r, 0, 0)
+    def have_skill(self, s):
+        for i in range(len(self.skills)):
+            if (self.skills[i].name == s):
+                return True
         
+        return False
+
+    def get_skill(self, s):
+        for i in range(len(self.skills)):
+            if (self.skills[i].name == s):
+                return self.skills[i]
+        
+        return -1
+
+    def reduce_cooldowns(self, a):
+        for i in range(len(self.skills)):
+            self.skills[i].cooldown = max(0, self.skills[i].cooldown - a)
+
+    def reduce_activations(self, a):
+        for i in range(len(self.skills)):
+            self.skills[i].activation = max(0, self.skills[i].activation - a)
+    def restore_health(self, a):
+        self.health = min(self.health + a, self.max_health)
+
+    def attack(self, main, weapon_sprite):
+        weapon = -1
+
+        if (self.direction[0] == 1):
+            weapon = core.instance_create(main, self.x + 24, self.y, obj_Weapon())
+            weapon.sprite_index = weapon_sprite
+            weapon.image_index = 0
+        elif (self.direction[0] == -1):
+            weapon = core.instance_create(main, self.x - 24, self.y, obj_Weapon())
+            weapon.sprite_index = weapon_sprite
+            weapon.image_index = 1
+        elif (self.direction[1] == 1):
+            weapon = core.instance_create(main, self.x, self.y + 24, obj_Weapon())
+            weapon.sprite_index = weapon_sprite
+            weapon.image_index = 2
+        elif (self.direction[1] == -1):
+            weapon = core.instance_create(main, self.x, self.y - 24, obj_Weapon())
+            weapon.sprite_index = weapon_sprite
+            weapon.image_index = 3
+
+        return weapon
+
+    def ranged_attack(self, main, attack_sprite, bullet_sprite):
+        weapon = -1
+
+        self.sprite_index = attack_sprite
+
+        if (self.direction[0] == 1):
+            weapon = core.instance_create(main, self.x + 24, self.y, obj_Bullet())
+            self.image_index = 0
+        elif (self.direction[0] == -1):
+            weapon = core.instance_create(main, self.x - 24, self.y, obj_Bullet())
+            self.image_index = 1
+        elif (self.direction[1] == 1):
+            weapon = core.instance_create(main, self.x, self.y + 24, obj_Bullet())
+            self.image_index = 2
+        elif (self.direction[1] == -1):
+            weapon = core.instance_create(main, self.x, self.y - 24, obj_Bullet())
+            self.image_index = 3
+
+        weapon.sprite_index = bullet_sprite
+        weapon.direction = [self.direction[0], self.direction[1]]
+
+        return weapon
 
 class Player_HUD(core.Object):
     def __init__(self, player):

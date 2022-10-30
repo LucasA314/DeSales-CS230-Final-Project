@@ -20,6 +20,8 @@ class obj_Enemy(core.Object):
 
         self.damage = 0
 
+        self.stunned = False
+
         self.drop_chance = 0.2
         self.drop_amount = random.randint(1, 3)
 
@@ -34,21 +36,73 @@ class obj_Enemy(core.Object):
 
         #Check For Death
         if (self.hp <= 0):
+            if (main.main_player.have_skill("headhunter")):
+                main.main_player.damage += 0.1
+
+            if (main.main_player.have_skill("victory_rush")):
+                main.main_player.restore_health(10)
+
             core.instance_destroy(main, self)
 
         #Take Damage
         if (main.player_weapon != -1 and self.iframes == 0 and core.scr_collision(self, main.player_weapon)):
-            self.hp -= main.main_player.damage
+            if (main.main_player.have_skill("relentless")):
+                main.main_player.reduce_cooldown(0.5)
+
+            damage_amount = main.main_player.damage
+
+            if (main.main_player.have_skill("heroic_strike") and main.main_player.get_skill("heroic_strike").cooldown == 0):
+                damage_amount *= 1.5
+                main.main_player.get_skill("heroic_strike").cooldown = main.main_player.get_skill("heroic_strike").max_cooldown
+            
+            if (self.have_skill("rage") and self.get_skill("rage").activation > 0):
+                damage_amount *= 2
+            
+            if (main.main_player.have_skill("beserking") and main.main_player.health < main.main_player.max_health * 0.5):
+                damage_amount += 5
+
+            if (main.main_player.slam_active):
+                damage_amount += damage_amount * 2
+                main.main_player.slam_active = False
+                main.main_player.get_skill("slam").cooldown = main.main_player.get_skill("slam").max_cooldown
+
+            if (main.main_player.blood_striking):
+                main.main_player.blood_striking = False
+                blood_damage = main.main_player.health * 0.25
+
+                main.main_player.health -= blood_damage
+                damage_amount += blood_damage
+
+            if (main.main_player.bashing):
+                main.main_player.bashing = False
+                self.stunned = True
+
+            self.hp -= damage_amount
 
             self.iframes = 60
 
         #Deal Contact Damage
         if (main.main_player.iframes == 0 and core.scr_collision(self, main.main_player)):
-            main.main_player.health = max(0, main.main_player.health - self.damage)
+            
+            if(main.main_player.shield_blocking):
+                main.main_player.shield_blocking = False
+            else:
+                damage_amount = self.damage
 
-            main.main_player.iframes = 60
+                if (main.main_player.counter_attacking):
+                    main.main_player.counter_attacking = False
+                    
+                    self.hp -= self.damage * 1.25
+                    self.iframes = 60
+                    
+                    damage_amount *= 0.5
 
-            main.main_player.hud.update_ui(main)
+
+                main.main_player.health = max(0, main.main_player.health - damage_amount)
+
+                main.main_player.iframes = 60
+
+                main.main_player.hud.update_ui(main)
 
     
     def destroy(self, main):
