@@ -11,16 +11,21 @@ from font_scripts import scr_place_object_text
 import weapons
 import dungeon_room as dr
 from weapons import obj_Bullet, obj_Weapon
+from game_over_menu import obj_Game_Over_Menu
 
 class Player(core.Object):
-    def __init__(self, name):
+    def __init__(self, name, ch_class, skills):
         core.Object.__init__(self, "spr_player_right", 1, True)
         
         self.name = name
+        self.character_class = ch_class
+        self.skills = skills
 
     def create(self, main):
         self.hsp = 0
         self.vsp = 0
+
+        self.alive = False
 
         self.health = 100
         self.max_health = 100
@@ -39,9 +44,6 @@ class Player(core.Object):
 
         self.hud = core.instance_create(main, 0, 0, Player_HUD(self))
 
-        self.character_class = "warrior"
-
-        self.skills = []
         self.slam_active = False
         self.bashing = False
         self.blood_striking = False
@@ -51,6 +53,15 @@ class Player(core.Object):
     def update(self, main):
         core.Object.update(self, main)
         
+        if (self.health <= 0):
+            self.health = 0
+            self.alive = False
+            main.main_player = -1
+            core.instance_create(main, 0, 0, obj_Game_Over_Menu())
+            main.current_room = -1
+            core.instance_destroy(main, self)
+
+
         moveLeft = -1 * int(main.im.left)
         moveRight = int(main.im.right)
         moveUp = -1 * int(main.im.up)
@@ -189,7 +200,7 @@ class Player(core.Object):
                 else:
                     weapon = self.ranged_attack(main, "spr_ranged_attack", "spr_bullet")
 
-            elif (self.characer_class == "wizard"):
+            elif (self.character_class == "wizard"):
 
                 
                 weapon = self.attack(main, "spr_staff")

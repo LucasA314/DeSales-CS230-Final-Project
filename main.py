@@ -123,6 +123,9 @@ class MainManager():
         self.textbox = core.instance_create(self, 0, 0, textbox_objects.obj_textbox())
         self.textbox.visible = False
 
+        self.selected_class = "Warrior"
+        self.selected_skills = []
+
         core.instance_create(self, 0, 0, title_menu.obj_Title_Menu())
         
 
@@ -177,7 +180,7 @@ class MainManager():
         self.test_room = dr.DungeonRoom(self, 40, 20, 1)
         
         #Create the Player
-        self.main_player = core.instance_create(self, 32, 32, player.Player("Lucas"))
+        self.main_player = core.instance_create(self, 32, 32, player.Player("Lucas", self.selected_class, self.selected_skills))
 
         self.textbox.visible = True
 

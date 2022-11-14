@@ -1,4 +1,5 @@
 import core
+from class_select_menu import obj_Class_Select_Menu
 
 class obj_Title_Menu(core.Object):
     def __init__(self):
@@ -25,6 +26,6 @@ class obj_Title_Menu(core.Object):
             main.im.a = False
 
             if (self.option == 0):
-                main.create_run()
-
+        
+                core.instance_create(main, 0, 0, obj_Class_Select_Menu())
                 core.instance_destroy(main, self)
