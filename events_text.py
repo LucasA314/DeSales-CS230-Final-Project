@@ -27,7 +27,7 @@ def escr_print_text(main, eventData):
             eventData[EVENT_CONTINUE_SCRIPT] = -1
     
     else:
-        main.sub_state = GAME_STATES['NULL_STATE']
+        main.sub_state = GAME_STATES.NULL_STATE.value
         eventData[EVENT_DONE] = True
     
 

@@ -7,6 +7,9 @@ class obj_Gold(core.Object):
         self.amount = amount
 
     def update(self, main):
+        if (main.main_player == -1):
+            core.instance_destroy(main, self)
+
         #Collect
         if (core.scr_collision(self, main.main_player)):
             main.main_player.gold += self.amount

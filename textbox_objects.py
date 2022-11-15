@@ -12,7 +12,7 @@ from font_scripts import *
 
 class obj_textbox(Object):
 	def __init__(self):
-		Object.__init__(self, "spr_textbox", 1, True)
+		Object.__init__(self, "spr_ui_box", 1, True)
 	
 	def create(self, main):
 		#Initialize Variables

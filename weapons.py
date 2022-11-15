@@ -13,6 +13,9 @@ class obj_Weapon(core.Object):
         self.owner = -1
 
     def update(self, main):
+        if (main.main_player == -1):
+            core.instance_destroy(main, self)
+
         self.remaining_frames -= 1
 
         if (self.remaining_frames == 0):
@@ -37,6 +40,9 @@ class obj_Bullet(core.Object):
         self.speed = 4
 
     def update(self, main):
+        if (main.main_player == -1):
+            core.instance_destroy(main, self)
+
         self.hsp = self.direction[0] * self.speed
         self.vsp = self.direction[1] * self.speed
 

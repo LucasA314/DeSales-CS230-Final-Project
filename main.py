@@ -89,7 +89,8 @@ def display_room(screen, room, tiles, tile_size):
     for r in range(room.room_height):
         for c in range(room.room_width):
             screen.blit(tiles[room.tiles[r][c]],(c * tile_size, r * tile_size))
-            
+
+#MainManager Class: Omnipotent Class that Gives Life to All Else        
 class MainManager():
     def __init__(self):
         #Load all Sprites
@@ -117,19 +118,30 @@ class MainManager():
         self.event_stack = [] #A list of currently ongoing events arranged in layers
         self.stack_index = 0  #Denotes where the currently running event is in the stack
         
+        #Define Important Pointers
         self.current_room = -1
+        self.main_player = -1
         self.player_weapon = -1
         
+        #Create Textbox
         self.textbox = core.instance_create(self, 0, 0, textbox_objects.obj_textbox())
         self.textbox.visible = False
 
+        #Define Skill Info
         self.selected_class = "Warrior"
         self.selected_skills = []
 
+        #Read in High Score
+        score_file = open("score.dat", "r")
+        self.high_score = int(score_file.readline())
+        score_file.close()
+
+        #Create the Title Screen
         core.instance_create(self, 0, 0, title_menu.obj_Title_Menu())
         
-
+    #Run Every Frame
     def update(self):
+        #Check if An Exit Needs to Be Created
         if (self.current_room != -1 and self.current_room.num_enemies == 0 and not self.current_room.exit_exists):
             self.current_room.create_exit()
 
@@ -182,14 +194,17 @@ class MainManager():
         #Create the Player
         self.main_player = core.instance_create(self, 32, 32, player.Player("Lucas", self.selected_class, self.selected_skills))
 
+        #Show the Textbox
         self.textbox.visible = True
 
         #Assign the Current Room
         self.current_room = self.test_room
 
+        #Place the Player in the Room
         self.main_player.goto_start_tile(self)
 
 
+#The Main Function
 def engine_main():
     
     #Initialize PyGame
@@ -216,6 +231,7 @@ def engine_main():
     #Set the PyGame Clock
     clock = pygame.time.Clock()
     
+    #Create the Manager
     main = MainManager()
     
     #Main Loop

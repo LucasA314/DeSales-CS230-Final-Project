@@ -8,6 +8,7 @@ Created on Sun Sep 25 14:56:36 2022
 import random
 from constants import EVENTS_LIST
 from core import *
+from skill_ui import obj_Skill_UI
 import enemy
 
 class DungeonRoom():
@@ -29,6 +30,7 @@ class DungeonRoom():
                 self.movement[r][c] = 0
 
         self.generate_room(main, self.difficulty)
+        instance_create(main, 0, 0, obj_Skill_UI())
 
         #Add Intro Text
         messageToPrint = [[

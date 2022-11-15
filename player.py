@@ -25,7 +25,7 @@ class Player(core.Object):
         self.hsp = 0
         self.vsp = 0
 
-        self.alive = False
+        self.alive = True
 
         self.health = 100
         self.max_health = 100
@@ -53,193 +53,193 @@ class Player(core.Object):
     def update(self, main):
         core.Object.update(self, main)
         
-        if (self.health <= 0):
+        if (self.health <= 0 and self.alive):
             self.health = 0
             self.alive = False
             main.main_player = -1
-            core.instance_create(main, 0, 0, obj_Game_Over_Menu())
+            core.instance_create(main, 0, 0, obj_Game_Over_Menu(self.gold * main.current_room.difficulty))
             main.current_room = -1
             core.instance_destroy(main, self)
+        elif (self.alive):
 
-
-        moveLeft = -1 * int(main.im.left)
-        moveRight = int(main.im.right)
-        moveUp = -1 * int(main.im.up)
-        moveDown = int(main.im.down)
-        
-        if (not self.attacking and main.sub_state != GAME_STATES.DIALOGUE.value):
-            if ((self.have_skill("beserking") and self.health < self.max_health * 0.5)
-                or (self.have_skill("rage") and self.get_skill("rage").activation > 0)):
-                self.hsp = (self.walkSpeed * 2) * (moveLeft + moveRight)
-                self.vsp = (self.walkSpeed * 2) * (moveUp + moveDown)
-            else:
-                self.hsp = self.walkSpeed * (moveLeft + moveRight)
-                self.vsp = self.walkSpeed * (moveUp + moveDown)
-        else:
-            self.hsp = 0
-            self.vsp = 0
-        
-        
-        #Horizontal Collisions
-        if (self.hsp > 0):
-            collision_found = False
-            i = 1
-
-            while (i < 32 and not collision_found):
-
-                if (core.tile_at_coord(main.current_room.movement, self.x + 32 + self.hsp, self.y + i) == 1):
-                    while (core.tile_at_coord(main.current_room.movement, self.x + 32 + 1, self.y + i) == 0):
-                        self.x += 1
-
-                    collision_found = True
-
-                    self.hsp = 0
-
-                i += 1
-                
-        elif (self.hsp < 0):
-            collision_found = False
-            i = 1
-
-            while (i < 32 and not collision_found):
-
-                if (core.tile_at_coord(main.current_room.movement, self.x + self.hsp, self.y + i) == 1):
-                    while (core.tile_at_coord(main.current_room.movement, self.x - 1, self.y + i) == 0):
-                        self.x -= 1
-                    
-                    collision_found = True
-
-                    self.hsp = 0
-
-                i += 1
-        
-        self.x += self.hsp
-        
-        
-        #Vertical Collisions
-        if (self.vsp > 0):
-            collision_found = False
-            i = 1
-
-            while (i < 32 and not collision_found):
-
-                if (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + 32 + self.vsp) == 1):
-                    while (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + 32 + 1) == 0):
-                        self.y += 1
-                        
-                    collision_found = True
-
-                    self.vsp = 0
-
-                i += 1
-
-        elif (self.vsp < 0):
-            collision_found = False
-            i = 1
-
-            while (i < 32 and not collision_found):
-
-                if (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + self.vsp) == 1):
-                    while (core.tile_at_coord(main.current_room.movement, self.x + i, self.y - 1) == 0):
-                        self.y -= 1
-                    
-                    collision_found = True
-
-                    self.vsp = 0
-                
-                i += 1
-        
-        self.y += self.vsp
-
-        #Collision With Stairs
-        if (core.tile_at_coord(main.current_room.tiles, self.x + 16, self.y + 16) == 2):
-            main.current_room = dr.DungeonRoom(main, 40, 20, main.current_room.difficulty + 1)
-
-            self.goto_start_tile(main)
-
-        #Attacking
-        if (self.hsp == 0 and self.vsp == 0 and not self.attacking and main.im.b_pressed and main.sub_state != GAME_STATES.DIALOGUE.value):
+            moveLeft = -1 * int(main.im.left)
+            moveRight = int(main.im.right)
+            moveUp = -1 * int(main.im.up)
+            moveDown = int(main.im.down)
             
-            main.im.b_pressed = False
-            self.attacking = True
-
-            weapon = -1
-
-            if (self.character_class == "warrior"):
-                if (self.have_skill("whirlwind") and self.get_skill("whirlwind").cooldown == 0):
-                    self.get_skill("whirlwind").cooldown = self.get_skill("whirlwind").max_cooldown
-                    weapon = self.attack(main, "spr_whirlwind")
-                elif (self.have_skill("shield_bash") and self.get_skill("shield_bash").cooldown == 0):
-                    self.get_skill("shield_bash").cooldown = self.get_skill("shield_bash").max_cooldown
-                    weapon = self.attack(main, "spr_shield_bash")
-                elif (self.have_skill("slam") and self.get_skill("slam").cooldown == 0 and not self.slam_active):
-                    self.slam_active = True
-                elif (self.have_skill("rage") and self.get_skill("rage").cooldown == 0):
-                    self.get_skill("rage").cooldown = self.get_skill("rage").max_cooldown
-                    self.get_skill("rage").activation = self.get_skill("rage").max_activation
-                elif (self.have_skill("shield_block") and self.get_skill("shield_block").cooldown == 0):
-                    self.get_skill("shield_block").cooldown = self.get_skill("shield_block").max_cooldown
-                    self.get_skill("shield_block").activation = self.get_skill("shield_block").max_activation
-                    self.shield_blocking = True
-                elif (self.have_skill("counter_attack") and self.get_skill("counter_attack").cooldown == 0):
-                    self.get_skill("counter_attack").cooldown = self.get_skill("counter_attack").max_cooldown
-                    self.get_skill("counter_attack").activation = self.get_skill("counter_attack").max_activation
-                    self.counter_attacking = True
+            if (not self.attacking and main.sub_state != GAME_STATES.DIALOGUE.value):
+                if ((self.have_skill("beserking") and self.health < self.max_health * 0.5)
+                    or (self.have_skill("rage") and self.get_skill("rage").activation > 0)):
+                    self.hsp = (self.walkSpeed * 2) * (moveLeft + moveRight)
+                    self.vsp = (self.walkSpeed * 2) * (moveUp + moveDown)
                 else:
-                    if (self.have_skill("blood_strike") and self.get_skill("blood_strike").cooldown == 0):
-                        self.get_skill("blood_strike").cooldown = self.get_skill("blood_strike").max_cooldown
-                        self.blood_striking = True
+                    self.hsp = self.walkSpeed * (moveLeft + moveRight)
+                    self.vsp = self.walkSpeed * (moveUp + moveDown)
+            else:
+                self.hsp = 0
+                self.vsp = 0
+            
+            
+            #Horizontal Collisions
+            if (self.hsp > 0):
+                collision_found = False
+                i = 1
 
-                    weapon = self.attack(main, "spr_sword")
-            elif (self.character_class == "ranger"):
+                while (i < 32 and not collision_found):
 
-                if (self.have_skill("multi_shot") and self.get_skill("multi_shot").cooldown == 0):
-                    self.get_skill("multi_shot").cooldown = self.get_skill("multi_shot").max_cooldown
+                    if (core.tile_at_coord(main.current_room.movement, self.x + 32 + self.hsp, self.y + i) == 1):
+                        while (core.tile_at_coord(main.current_room.movement, self.x + 32 + 1, self.y + i) == 0):
+                            self.x += 1
+
+                        collision_found = True
+
+                        self.hsp = 0
+
+                    i += 1
                     
-                    #????????????
-                else:
-                    weapon = self.ranged_attack(main, "spr_ranged_attack", "spr_bullet")
+            elif (self.hsp < 0):
+                collision_found = False
+                i = 1
 
-            elif (self.character_class == "wizard"):
+                while (i < 32 and not collision_found):
 
+                    if (core.tile_at_coord(main.current_room.movement, self.x + self.hsp, self.y + i) == 1):
+                        while (core.tile_at_coord(main.current_room.movement, self.x - 1, self.y + i) == 0):
+                            self.x -= 1
+                        
+                        collision_found = True
+
+                        self.hsp = 0
+
+                    i += 1
+            
+            self.x += self.hsp
+            
+            
+            #Vertical Collisions
+            if (self.vsp > 0):
+                collision_found = False
+                i = 1
+
+                while (i < 32 and not collision_found):
+
+                    if (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + 32 + self.vsp) == 1):
+                        while (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + 32 + 1) == 0):
+                            self.y += 1
+                            
+                        collision_found = True
+
+                        self.vsp = 0
+
+                    i += 1
+
+            elif (self.vsp < 0):
+                collision_found = False
+                i = 1
+
+                while (i < 32 and not collision_found):
+
+                    if (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + self.vsp) == 1):
+                        while (core.tile_at_coord(main.current_room.movement, self.x + i, self.y - 1) == 0):
+                            self.y -= 1
+                        
+                        collision_found = True
+
+                        self.vsp = 0
+                    
+                    i += 1
+            
+            self.y += self.vsp
+
+            #Collision With Stairs
+            if (core.tile_at_coord(main.current_room.tiles, self.x + 16, self.y + 16) == 2):
+                main.current_room = dr.DungeonRoom(main, 40, 20, main.current_room.difficulty + 1)
+
+                self.goto_start_tile(main)
+
+            #Attacking
+            if (self.hsp == 0 and self.vsp == 0 and not self.attacking and main.im.b_pressed and main.sub_state != GAME_STATES.DIALOGUE.value):
                 
-                weapon = self.attack(main, "spr_staff")
+                main.im.b_pressed = False
+                self.attacking = True
 
-            weapon.owner = self
-            main.player_weapon = weapon
+                weapon = -1
 
-        #Set a Direction and Update Animations
-        if (self.hsp > 0):
-            self.direction = [1, 0]
-            self.sprite_index = "spr_player_right"
-        elif (self.hsp < 0):
-            self.direction = [-1, 0]
-            self.sprite_index = "spr_player_left"
+                if (self.character_class == "warrior"):
+                    if (self.have_skill("whirlwind") and self.get_skill("whirlwind").cooldown == 0):
+                        self.get_skill("whirlwind").cooldown = self.get_skill("whirlwind").max_cooldown
+                        weapon = self.attack(main, "spr_whirlwind")
+                    elif (self.have_skill("shield_bash") and self.get_skill("shield_bash").cooldown == 0):
+                        self.get_skill("shield_bash").cooldown = self.get_skill("shield_bash").max_cooldown
+                        weapon = self.attack(main, "spr_shield_bash")
+                    elif (self.have_skill("slam") and self.get_skill("slam").cooldown == 0 and not self.slam_active):
+                        self.slam_active = True
+                    elif (self.have_skill("rage") and self.get_skill("rage").cooldown == 0):
+                        self.get_skill("rage").cooldown = self.get_skill("rage").max_cooldown
+                        self.get_skill("rage").activation = self.get_skill("rage").max_activation
+                    elif (self.have_skill("shield_block") and self.get_skill("shield_block").cooldown == 0):
+                        self.get_skill("shield_block").cooldown = self.get_skill("shield_block").max_cooldown
+                        self.get_skill("shield_block").activation = self.get_skill("shield_block").max_activation
+                        self.shield_blocking = True
+                    elif (self.have_skill("counter_attack") and self.get_skill("counter_attack").cooldown == 0):
+                        self.get_skill("counter_attack").cooldown = self.get_skill("counter_attack").max_cooldown
+                        self.get_skill("counter_attack").activation = self.get_skill("counter_attack").max_activation
+                        self.counter_attacking = True
+                    else:
+                        if (self.have_skill("blood_strike") and self.get_skill("blood_strike").cooldown == 0):
+                            self.get_skill("blood_strike").cooldown = self.get_skill("blood_strike").max_cooldown
+                            self.blood_striking = True
 
-        if (self.vsp > 0):
-            self.direction = [0, 1]
-            self.sprite_index = "spr_player_down"
-        elif (self.vsp < 0):
-            self.direction = [0, -1]
-            self.sprite_index = "spr_player_up"
+                        weapon = self.attack(main, "spr_sword")
+                elif (self.character_class == "ranger"):
 
-        #Update Invincibility Frames
-        if (self.iframes > 0):
-            self.visible = (self.iframes % 2 == 0)
+                    if (self.have_skill("multi_shot") and self.get_skill("multi_shot").cooldown == 0):
+                        self.get_skill("multi_shot").cooldown = self.get_skill("multi_shot").max_cooldown
+                        
+                        #????????????
+                    else:
+                        weapon = self.ranged_attack(main, "spr_ranged_attack", "spr_bullet")
 
-            self.iframes -= 1
-        else:
-            self.visible = True
+                elif (self.character_class == "wizard"):
 
-        #Update Skill Cooldowns
-        self.reduce_cooldowns(1)
-        self.reduce_activations(1)
+                    
+                    weapon = self.attack(main, "spr_staff")
 
-        if (self.have_skill("shield_block") and self.get_skill("shield_block").activation == 0):
-            self.shield_blocking = False
+                weapon.owner = self
+                main.player_weapon = weapon
 
-        if (self.have_skill("counter_attack") and self.get_skill("counter_attack").activation == 0):
-            self.counter_attacking = False
+            #Set a Direction and Update Animations
+            if (self.hsp > 0):
+                self.direction = [1, 0]
+                self.sprite_index = "spr_player_right"
+            elif (self.hsp < 0):
+                self.direction = [-1, 0]
+                self.sprite_index = "spr_player_left"
+
+            if (self.vsp > 0):
+                self.direction = [0, 1]
+                self.sprite_index = "spr_player_down"
+            elif (self.vsp < 0):
+                self.direction = [0, -1]
+                self.sprite_index = "spr_player_up"
+
+            #Update Invincibility Frames
+            if (self.iframes > 0):
+                self.visible = (self.iframes % 2 == 0)
+
+                self.iframes -= 1
+            else:
+                self.visible = True
+
+            #Update Skill Cooldowns
+            self.reduce_cooldowns(1)
+            self.reduce_activations(1)
+
+            if (self.have_skill("shield_block") and self.get_skill("shield_block").activation == 0):
+                self.shield_blocking = False
+
+            if (self.have_skill("counter_attack") and self.get_skill("counter_attack").activation == 0):
+                self.counter_attacking = False
 
 
             
