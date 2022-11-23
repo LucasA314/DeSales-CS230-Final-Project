@@ -252,10 +252,11 @@ class Player(core.Object):
 
                     
                     weapon = self.attack(main, "spr_staff")
-
+                '''
+                
                 weapon.owner = self
                 main.player_weapon = weapon
-                '''
+                
             #Set a Direction and Update Animations
             if (self.hsp > 0):
                 self.direction = [1, 0]

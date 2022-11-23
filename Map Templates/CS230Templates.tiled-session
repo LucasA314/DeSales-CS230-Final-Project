@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCrossoverGadget.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -24,8 +24,8 @@
             "scale": 3.61890625,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 144.38063986874488,
-                "y": 187.0730970165364
+                "x": 298.15638357583873,
+                "y": 219.95596045075774
             }
         },
         "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCrossoverGadget.tmx": {
@@ -83,16 +83,16 @@
             "scale": 1.488719512195122,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 312.01310669670283,
-                "y": 160.54065123899244
+                "x": 312.68482490272373,
+                "y": 161.21236944501334
             }
         },
         "rm001.tmx": {
             "scale": 1.809453125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 321.09149000474935,
-                "y": 342.64496351625576
+                "x": 320.8151634212685,
+                "y": 267.4841328094642
             }
         },
         "rm002.tmx": {
@@ -118,6 +118,94 @@
                 "x": 312.34896579971326,
                 "y": 162.5558058570551
             }
+        },
+        "rm005.tmx": {
+            "scale": 1.4309375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 321.11814806726363,
+                "y": 159.33609958506227
+            }
+        },
+        "rm006.tmx": {
+            "scale": 1.4309375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 321.11814806726363,
+                "y": 159.33609958506227
+            }
+        },
+        "rm007.tmx": {
+            "scale": 1.4309375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 321.11814806726363,
+                "y": 160.7337846691417
+            }
+        },
+        "rm008.tmx": {
+            "scale": 1.4309375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 321.11814806726363,
+                "y": 159.33609958506227
+            }
+        },
+        "rm009.tmx": {
+            "scale": 1.4309375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 321.11814806726363,
+                "y": 159.33609958506227
+            }
+        },
+        "rm010.tmx": {
+            "scale": 1.4309375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 321.11814806726363,
+                "y": 159.33609958506227
+            }
+        },
+        "rm011.tmx": {
+            "scale": 1.4309375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 321.11814806726363,
+                "y": 159.33609958506227
+            }
+        },
+        "rm012.tmx": {
+            "scale": 1.4309375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 321.11814806726363,
+                "y": 159.33609958506227
+            }
+        },
+        "rm013.tmx": {
+            "scale": 1.4309375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 321.11814806726363,
+                "y": 159.33609958506227
+            }
+        },
+        "rm014.tmx": {
+            "scale": 1.4309375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 321.11814806726363,
+                "y": 159.33609958506227
+            }
+        },
+        "rm015.tmx": {
+            "scale": 1.4309375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 321.11814806726363,
+                "y": 159.33609958506227
+            }
         }
     },
     "last.exportedFilePath": "C:/Users/lucas/OneDrive/Documents/Programming/GitHubRepos/DeSales-CS230-Final-Project/Map Templates",
@@ -129,26 +217,21 @@
     "map.tileWidth": 16,
     "map.width": 26,
     "openFiles": [
-        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightTiles.tsx",
-        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightClause.tmx",
-        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCrossoverGadget.tmx",
-        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCastle.tsx",
-        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightGate.tsx"
     ],
     "project": "CS230Templates.tiled-project",
     "recentFiles": [
+        "rm007.tmx",
         "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightTiles.tsx",
         "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightClause.tmx",
-        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightGate.tsx",
-        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCastle.tsx",
         "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCrossoverGadget.tmx",
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCastle.tsx",
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightGate.tsx",
         "BasicTiles.tsx",
         "rm001.tmx",
         "rm002.tmx",
         "rm003.tmx",
         "rm004.tmx",
-        "rm000.tmx",
-        "C:/Users/lucas/OneDrive/Desktop/ShadowlandsResources/Room Templates/room_tiles.tsx"
+        "rm000.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
