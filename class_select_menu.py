@@ -10,6 +10,12 @@ class obj_Class_Select_Menu(core.Object):
     def create(self, main):
         self.option = 0
 
+        #SKIP THIS MENU
+        main.selected_class = "warrior"
+
+        core.instance_create(main, 0, 0, obj_Skill_Select_Menu())
+        core.instance_destroy(main, self)
+
     def update(self, main):
         self.image_index = self.option
 

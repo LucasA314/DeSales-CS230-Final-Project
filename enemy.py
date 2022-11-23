@@ -64,6 +64,9 @@ class obj_Enemy(core.Object):
                 if (main.main_player.have_skill("beserking") and main.main_player.health < main.main_player.max_health * 0.5):
                     damage_amount += 5
 
+                if (main.main_player.have_skill("ravage") and self.get_skill("ravage").activation > 0):
+                    damage_amount += 10
+
                 if (main.main_player.slam_active):
                     damage_amount += damage_amount * 2
                     main.main_player.slam_active = False
@@ -99,7 +102,14 @@ class obj_Enemy(core.Object):
                         self.iframes = 60
                         
                         damage_amount *= 0.5
+                    elif (main.main_player.charging):
+                        main.main_player.charging = False
+                        main.main_player.attacking = False
+                        main.main_player.get_skill("charge").cooldown = main.main_player.get_skill("charge").max_cooldown
 
+                        self.hp -= main.main_player.damage
+                        self.iframes = 60
+                        main.main_player.iframes = 60
 
                     main.main_player.health = max(0, main.main_player.health - damage_amount)
 

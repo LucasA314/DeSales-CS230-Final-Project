@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "rm004.tmx",
+    "activeFile": "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCrossoverGadget.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -15,6 +15,34 @@
         "C:/Users/lucas/OneDrive/Desktop/ShadowlandsResources/Room Templates/room_tiles.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCastle.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightClause.tmx": {
+            "scale": 3.61890625,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 144.38063986874488,
+                "y": 187.0730970165364
+            }
+        },
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCrossoverGadget.tmx": {
+            "scale": 2.680671296296296,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 111.16618453434654,
+                "y": 162.27278614913
+            }
+        },
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightGate.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 11
+        },
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightTiles.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1.5
         },
         "C:/Users/lucas/OneDrive/Documents/Misc/Pokemon BW Demake/Map Planning/Red and Blue.tsx": {
             "scaleInDock": 1
@@ -63,15 +91,15 @@
             "scale": 1.809453125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 320.53883683778764,
-                "y": 160.26941841889385
+                "x": 321.09149000474935,
+                "y": 342.64496351625576
             }
         },
         "rm002.tmx": {
             "scale": 1.488719512195122,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 312.34896579971326,
+                "x": 319.7378660659431,
                 "y": 161.21236944501334
             }
         },
@@ -79,7 +107,7 @@
             "scale": 1.488719512195122,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 312.34896579971326,
+                "x": 319.7378660659431,
                 "y": 161.21236944501334
             }
         },
@@ -88,42 +116,43 @@
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 312.34896579971326,
-                "y": 161.21236944501334
+                "y": 162.5558058570551
             }
         }
     },
     "last.exportedFilePath": "C:/Users/lucas/OneDrive/Documents/Programming/GitHubRepos/DeSales-CS230-Final-Project/Map Templates",
-    "last.imagePath": "C:/Users/lucas/OneDrive/Documents/Programming/GitHubRepos/DeSales-CS230-Final-Project/tilesets",
-    "map.height": 20,
+    "last.imagePath": "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar",
+    "map.height": 14,
     "map.lastUsedExportFilter": "CSV files (*.csv)",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
-    "map.width": 40,
+    "map.width": 26,
     "openFiles": [
-        "BasicTiles.tsx",
-        "rm001.tmx",
-        "rm002.tmx",
-        "rm003.tmx",
-        "rm004.tmx"
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightTiles.tsx",
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightClause.tmx",
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCrossoverGadget.tmx",
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCastle.tsx",
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightGate.tsx"
     ],
     "project": "CS230Templates.tiled-project",
     "recentFiles": [
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightTiles.tsx",
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightClause.tmx",
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightGate.tsx",
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCastle.tsx",
+        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCrossoverGadget.tmx",
         "BasicTiles.tsx",
         "rm001.tmx",
         "rm002.tmx",
         "rm003.tmx",
         "rm004.tmx",
         "rm000.tmx",
-        "C:/Users/lucas/OneDrive/Desktop/ShadowlandsResources/Room Templates/room_tiles.tsx",
-        "C:/Users/lucas/OneDrive/Documents/Misc/Pokemon BW Demake/Map Planning/unova_linked.tmx",
-        "C:/Users/lucas/OneDrive/Documents/Misc/Pokemon BW Demake/Map Planning/unova_rom_based.tmx",
-        "C:/Users/lucas/OneDrive/Documents/Misc/Pokemon BW Demake/Map Planning/unova_rom_based_north.tmx",
-        "C:/Users/lucas/OneDrive/Documents/Misc/Pokemon BW Demake/Map Planning/dreamyard_ext.tmx"
+        "C:/Users/lucas/OneDrive/Desktop/ShadowlandsResources/Room Templates/room_tiles.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 16,
-        "width": 16
+        "height": 48,
+        "width": 48
     }
 }

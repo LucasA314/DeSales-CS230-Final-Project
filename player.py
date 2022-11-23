@@ -49,6 +49,7 @@ class Player(core.Object):
         self.blood_striking = False
         self.shield_blocking = False
         self.counter_attacking = False
+        self.charging = False
         
     def update(self, main):
         core.Object.update(self, main)
@@ -62,22 +63,23 @@ class Player(core.Object):
             core.instance_destroy(main, self)
         elif (self.alive):
 
-            moveLeft = -1 * int(main.im.left)
-            moveRight = int(main.im.right)
-            moveUp = -1 * int(main.im.up)
-            moveDown = int(main.im.down)
-            
-            if (not self.attacking and main.sub_state != GAME_STATES.DIALOGUE.value):
-                if ((self.have_skill("beserking") and self.health < self.max_health * 0.5)
-                    or (self.have_skill("rage") and self.get_skill("rage").activation > 0)):
-                    self.hsp = (self.walkSpeed * 2) * (moveLeft + moveRight)
-                    self.vsp = (self.walkSpeed * 2) * (moveUp + moveDown)
+            if (not self.charging):
+                moveLeft = -1 * int(main.im.left)
+                moveRight = int(main.im.right)
+                moveUp = -1 * int(main.im.up)
+                moveDown = int(main.im.down)
+                
+                if (not self.attacking and main.sub_state != GAME_STATES.DIALOGUE.value):
+                    if ((self.have_skill("beserking") and self.health < self.max_health * 0.5)
+                        or (self.have_skill("rage") and self.get_skill("rage").activation > 0)):
+                        self.hsp = (self.walkSpeed * 2) * (moveLeft + moveRight)
+                        self.vsp = (self.walkSpeed * 2) * (moveUp + moveDown)
+                    else:
+                        self.hsp = self.walkSpeed * (moveLeft + moveRight)
+                        self.vsp = self.walkSpeed * (moveUp + moveDown)
                 else:
-                    self.hsp = self.walkSpeed * (moveLeft + moveRight)
-                    self.vsp = self.walkSpeed * (moveUp + moveDown)
-            else:
-                self.hsp = 0
-                self.vsp = 0
+                    self.hsp = 0
+                    self.vsp = 0
             
             
             #Horizontal Collisions
@@ -93,8 +95,15 @@ class Player(core.Object):
 
                         collision_found = True
 
+                        if (self.have_skill("charge")):
+                            if (self.charging):
+                                self.attacking = False
+                            self.charging = False
+                            self.get_skill("charge").cooldown = self.get_skill("charge").max_cooldown
+
                         self.hsp = 0
 
+                        
                     i += 1
                     
             elif (self.hsp < 0):
@@ -108,6 +117,12 @@ class Player(core.Object):
                             self.x -= 1
                         
                         collision_found = True
+                        
+                        if (self.have_skill("charge")):
+                            if (self.charging):
+                                self.attacking = False
+                            self.charging = False
+                            self.get_skill("charge").cooldown = self.get_skill("charge").max_cooldown
 
                         self.hsp = 0
 
@@ -128,6 +143,12 @@ class Player(core.Object):
                             self.y += 1
                             
                         collision_found = True
+                        
+                        if (self.have_skill("charge")):
+                            if (self.charging):
+                                self.attacking = False
+                            self.charging = False
+                            self.get_skill("charge").cooldown = self.get_skill("charge").max_cooldown
 
                         self.vsp = 0
 
@@ -144,6 +165,12 @@ class Player(core.Object):
                             self.y -= 1
                         
                         collision_found = True
+
+                        if (self.have_skill("charge")):
+                            if (self.charging):
+                                self.attacking = False
+                            self.charging = False
+                            self.get_skill("charge").cooldown = self.get_skill("charge").max_cooldown
 
                         self.vsp = 0
                     
@@ -166,37 +193,58 @@ class Player(core.Object):
                 weapon = -1
 
                 if (self.character_class == "warrior"):
-                    if (self.have_skill("whirlwind") and self.get_skill("whirlwind").cooldown == 0):
+                    if (self.have_skill("whirlwind") and self.get_skill("whirlwind").cooldown == 0 and not self.ravaging()):
                         self.get_skill("whirlwind").cooldown = self.get_skill("whirlwind").max_cooldown
                         weapon = self.attack(main, "spr_whirlwind")
-                    elif (self.have_skill("shield_bash") and self.get_skill("shield_bash").cooldown == 0):
+                    elif (self.have_skill("charge") and self.get_skill("charge").cooldown == 0 and not self.ravaging()):
+                        self.get_skill("charge").cooldown = self.get_skill("charge").max_cooldown
+                        self.charging = True
+
+                        if (self.direction[0] == 1):
+                            self.hsp = self.walkSpeed
+                            self.vsp = 0
+                        elif (self.direction[0] == -1):
+                            self.hsp = -1 * self.walkSpeed
+                            self.vsp = 0
+                        elif (self.direction[1] == 1):
+                            self.hsp = 0
+                            self.vsp = self.walkSpeed
+                        elif (self.direction[1] == -1):
+                            self.hsp = 0
+                            self.vsp = -1 * self.walkSpeed
+
+                    elif (self.have_skill("shield_bash") and self.get_skill("shield_bash").cooldown == 0 and not self.ravaging()):
                         self.get_skill("shield_bash").cooldown = self.get_skill("shield_bash").max_cooldown
                         weapon = self.attack(main, "spr_shield_bash")
-                    elif (self.have_skill("slam") and self.get_skill("slam").cooldown == 0 and not self.slam_active):
+                    elif (self.have_skill("slam") and self.get_skill("slam").cooldown == 0 and not self.slam_active and not self.ravaging()):
                         self.slam_active = True
-                    elif (self.have_skill("rage") and self.get_skill("rage").cooldown == 0):
+                    elif (self.have_skill("rage") and self.get_skill("rage").cooldown == 0 and not self.ravaging()):
                         self.get_skill("rage").cooldown = self.get_skill("rage").max_cooldown
                         self.get_skill("rage").activation = self.get_skill("rage").max_activation
-                    elif (self.have_skill("shield_block") and self.get_skill("shield_block").cooldown == 0):
+                    elif (self.have_skill("shield_block") and self.get_skill("shield_block").cooldown == 0 and not self.ravaging()):
                         self.get_skill("shield_block").cooldown = self.get_skill("shield_block").max_cooldown
                         self.get_skill("shield_block").activation = self.get_skill("shield_block").max_activation
                         self.shield_blocking = True
-                    elif (self.have_skill("counter_attack") and self.get_skill("counter_attack").cooldown == 0):
+                    elif (self.have_skill("ravage") and self.get_skill("ravage").cooldown == 0 and not self.ravaging()):
+                        self.get_skill("ravage").cooldown = self.get_skill("shield_block").max_cooldown
+                        self.get_skill("ravaging").activation = self.get_skill("ravaging").max_activation
+                        self.shield_blocking = True
+                    elif (self.have_skill("counter_attack") and self.get_skill("counter_attack").cooldown == 0 and not self.ravaging()):
                         self.get_skill("counter_attack").cooldown = self.get_skill("counter_attack").max_cooldown
                         self.get_skill("counter_attack").activation = self.get_skill("counter_attack").max_activation
                         self.counter_attacking = True
                     else:
-                        if (self.have_skill("blood_strike") and self.get_skill("blood_strike").cooldown == 0):
+                        if (self.have_skill("blood_strike") and self.get_skill("blood_strike").cooldown == 0 and not self.ravaging()):
                             self.get_skill("blood_strike").cooldown = self.get_skill("blood_strike").max_cooldown
                             self.blood_striking = True
 
                         weapon = self.attack(main, "spr_sword")
+                '''
                 elif (self.character_class == "ranger"):
 
                     if (self.have_skill("multi_shot") and self.get_skill("multi_shot").cooldown == 0):
                         self.get_skill("multi_shot").cooldown = self.get_skill("multi_shot").max_cooldown
                         
-                        #????????????
                     else:
                         weapon = self.ranged_attack(main, "spr_ranged_attack", "spr_bullet")
 
@@ -207,7 +255,7 @@ class Player(core.Object):
 
                 weapon.owner = self
                 main.player_weapon = weapon
-
+                '''
             #Set a Direction and Update Animations
             if (self.hsp > 0):
                 self.direction = [1, 0]
@@ -266,6 +314,12 @@ class Player(core.Object):
         
         return -1
 
+    def ravaging(self):
+        if (self.have_skill("ravage") and self.get_skill("ravage").activation > 0):
+            return True
+        
+        return False
+
     def reduce_cooldowns(self, a):
         for i in range(len(self.skills)):
             self.skills[i].cooldown = max(0, self.skills[i].cooldown - a)
@@ -279,22 +333,27 @@ class Player(core.Object):
     def attack(self, main, weapon_sprite):
         weapon = -1
 
-        if (self.direction[0] == 1):
-            weapon = core.instance_create(main, self.x + 24, self.y, obj_Weapon())
+        if (weapon_sprite == "spr_whirlwind"):
+            weapon = core.instance_create(main, self.x - 16, self.y - 16, obj_Weapon())
             weapon.sprite_index = weapon_sprite
             weapon.image_index = 0
-        elif (self.direction[0] == -1):
-            weapon = core.instance_create(main, self.x - 24, self.y, obj_Weapon())
-            weapon.sprite_index = weapon_sprite
-            weapon.image_index = 1
-        elif (self.direction[1] == 1):
-            weapon = core.instance_create(main, self.x, self.y + 24, obj_Weapon())
-            weapon.sprite_index = weapon_sprite
-            weapon.image_index = 2
-        elif (self.direction[1] == -1):
-            weapon = core.instance_create(main, self.x, self.y - 24, obj_Weapon())
-            weapon.sprite_index = weapon_sprite
-            weapon.image_index = 3
+        else:
+            if (self.direction[0] == 1):
+                weapon = core.instance_create(main, self.x + 24, self.y, obj_Weapon())
+                weapon.sprite_index = weapon_sprite
+                weapon.image_index = 0
+            elif (self.direction[0] == -1):
+                weapon = core.instance_create(main, self.x - 24, self.y, obj_Weapon())
+                weapon.sprite_index = weapon_sprite
+                weapon.image_index = 1
+            elif (self.direction[1] == 1):
+                weapon = core.instance_create(main, self.x, self.y + 24, obj_Weapon())
+                weapon.sprite_index = weapon_sprite
+                weapon.image_index = 2
+            elif (self.direction[1] == -1):
+                weapon = core.instance_create(main, self.x, self.y - 24, obj_Weapon())
+                weapon.sprite_index = weapon_sprite
+                weapon.image_index = 3
 
         return weapon
 
