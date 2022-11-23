@@ -9,7 +9,6 @@ Setup Correct Inputs (Luke)
 
 Game Design
 -----------
-Create a few more Room Designs (Lucas)
 Create a few more enemy types (Lucas)
 
 Effects
