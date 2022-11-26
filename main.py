@@ -442,7 +442,7 @@ def engine_main():
                     else:
                         main.im.down = 0
                         main.im.down_pressed = 0
-                    
+                    #A
                     if event.key==pygame.K_z:
                         if main.im.a != 1:
                             main.im.a_pressed = 1
@@ -451,7 +451,7 @@ def engine_main():
                     else:
                         main.im.a = 0
                         main.im.a_pressed = 0
-
+                    #B
                     if event.key==pygame.K_x:
                         if main.im.b != 1:
                             main.im.b_pressed = 1
@@ -460,6 +460,33 @@ def engine_main():
                     else:
                         main.im.b = 0
                         main.im.b_pressed = 0
+                    #X
+                    if event.key==pygame.K_1:
+                        if main.im.x != 1:
+                            main.im.x_pressed = 1
+
+                        main.im.x = 1
+                    else:
+                        main.im.x = 0
+                        main.im.x_pressed = 0  
+                    #Y
+                    if event.key==pygame.K_2:
+                        if main.im.y != 1:
+                            main.im.y_pressed = 1
+
+                        main.im.y = 1
+                    else:
+                        main.im.y = 0
+                        main.im.y_pressed = 0  
+                    #Z
+                    if event.key==pygame.K_3:
+                        if main.im.z != 1:
+                            main.im.z_pressed = 1
+
+                        main.im.z = 1
+                    else:
+                        main.im.z = 0
+                        main.im.z_pressed = 0  
                         
                 if event.type==pygame.KEYUP:
                     if event.key==pygame.K_LEFT:

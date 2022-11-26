@@ -246,8 +246,11 @@ class Player(core.Object):
                         self.get_skill("counter_attack").cooldown = self.get_skill("counter_attack").max_cooldown
                         self.get_skill("counter_attack").activation = self.get_skill("counter_attack").max_activation
                         self.counter_attacking = True
+                    else:
+                        self.attacking = False
 
-                    weapon.owner = self
+                    if (weapon != -1):
+                        weapon.owner = self
                     main.player_weapon = weapon
 
 
@@ -299,8 +302,11 @@ class Player(core.Object):
                         self.get_skill("counter_attack").cooldown = self.get_skill("counter_attack").max_cooldown
                         self.get_skill("counter_attack").activation = self.get_skill("counter_attack").max_activation
                         self.counter_attacking = True
+                    else:
+                        self.attacking = False
 
-                    weapon.owner = self
+                    if (weapon != -1):
+                        weapon.owner = self
                     main.player_weapon = weapon
 
                 #Skill 3
@@ -349,10 +355,11 @@ class Player(core.Object):
                         self.get_skill("counter_attack").cooldown = self.get_skill("counter_attack").max_cooldown
                         self.get_skill("counter_attack").activation = self.get_skill("counter_attack").max_activation
                         self.counter_attacking = True
+                    else:
+                        self.attacking = False
 
                     if (weapon != -1):
                         weapon.owner = self
-                    
                     main.player_weapon = weapon
             
                 
