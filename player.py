@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Sep 25 15:29:06 2022
-
-@author: lucas
-"""
-
 from constants import CENTER_LEFT, GAME_STATES
 import core
 import music_core

@@ -14,5 +14,4 @@ Test with Raspberry Pi
 
 Misc
 -------
-Get Better Graphics (Gabby)
 Make and Practice Presentation (All)

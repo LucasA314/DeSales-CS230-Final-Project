@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Oct  2 12:44:04 2022
-
-@author: lucas
-"""
-
-
 import core
 
 class obj_letter(core.Object):

@@ -1,4 +1,3 @@
-
 import core
 import music_core
 import constants
@@ -7,9 +6,7 @@ import random
 
 class obj_Enemy(core.Object):
     def __init__(self, main, sprite, frames):
-        core.Object.__init__(self, main, sprite, frames, True)
-
-        
+        core.Object.__init__(self, main, sprite, frames, True)  
 
     def create(self, main):
         self.speed = 0

@@ -5,8 +5,7 @@ Created on Sun Sep 25 15:29:34 2022
 @author: lucas
 """
 import math
-
-TILE_SIZE = 16
+from constants import TILE_SIZE
 
 class Object():
     def __init__(self, main, spr, frms, vis):

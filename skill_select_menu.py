@@ -1,7 +1,7 @@
 import core
 import constants
 import music_core
-from active_skill import Skill
+from skill import Skill
 
 class obj_Skill_Select_Menu(core.Object):
     def __init__(self, main):

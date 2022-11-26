@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "rm015.tmx",
+    "activeFile": "rm001.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -208,8 +208,8 @@
             "scale": 1.4309375,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 276.39222537671986,
-                "y": 159.33609958506227
+                "x": 277.0910679187596,
+                "y": 160.03494212710203
             }
         }
     },
@@ -222,9 +222,10 @@
     "map.tileWidth": 16,
     "map.width": 26,
     "openFiles": [
-        "BasicTiles.tsx",
-        "rm000.tmx",
         "rm001.tmx",
+        "rm002.tmx",
+        "rm003.tmx",
+        "rm004.tmx",
         "rm005.tmx",
         "rm006.tmx",
         "rm007.tmx",
@@ -239,18 +240,18 @@
     ],
     "project": "CS230Templates.tiled-project",
     "recentFiles": [
-        "rm005.tmx",
-        "BasicTiles.tsx",
-        "FancyTiles.tsx",
-        "rm000.tmx",
-        "rm001.tmx",
-        "rm006.tmx",
-        "rm007.tmx",
-        "rm008.tmx",
-        "rm009.tmx",
-        "rm010.tmx",
+        "rm015.tmx",
+        "rm014.tmx",
+        "rm013.tmx",
+        "rm012.tmx",
         "rm011.tmx",
-        "rm012.tmx"
+        "rm010.tmx",
+        "rm009.tmx",
+        "rm008.tmx",
+        "rm007.tmx",
+        "rm006.tmx",
+        "rm005.tmx",
+        "rm004.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

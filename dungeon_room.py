@@ -6,7 +6,7 @@ Created on Sun Sep 25 14:56:36 2022
 """
 
 import random
-from constants import EVENTS_LIST
+from constants import EVENTS_LIST, TILE_SIZE
 from core import *
 from skill_ui import obj_Skill_UI
 import enemy

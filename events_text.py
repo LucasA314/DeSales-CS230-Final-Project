@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Jul  3 17:56:25 2022
-
-@author: lucas
-"""
-
 from constants import *
 from core import *
     

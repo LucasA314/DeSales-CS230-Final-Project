@@ -1,16 +1,12 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Oct  2 13:15:19 2022
-
-@author: lucas
-"""
-
 from enum import Enum
 from enum import auto
 
 
-TILE_SIZE = 16
+#Screen Constants
+'''
 
+'''
+TILE_SIZE = 16
 BASE_WIDTH = 640
 BASE_HEIGHT = 360
 

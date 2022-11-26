@@ -1,7 +1,7 @@
 import core
 import constants
 import font_scripts
-from active_skill import Skill
+from skill import Skill
 
 class obj_Skill_UI(core.Object):
     def __init__(self, main):
