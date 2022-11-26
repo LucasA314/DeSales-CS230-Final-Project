@@ -7,6 +7,7 @@ class obj_Title_Menu(core.Object):
     def __init__(self, main):
         core.Object.__init__(self, main, "spr_title_menu", 2, True)
 
+        self.menu = core.instance_create(main, self.x, self.y, obj_Title_Menu_Image(main))
         self.image_speed = 0
     
     def create(self, main):
@@ -36,6 +37,14 @@ class obj_Title_Menu(core.Object):
             if (self.option == 0):
         
                 core.instance_create(main, 0, 0, obj_Class_Select_Menu(main))
+                core.instance_destroy(main, self.menu)
                 core.instance_destroy(main, self)
             else:
                 main.quit = False
+
+
+
+class obj_Title_Menu_Image(core.Object):
+    def __init__(self, main):
+        core.Object.__init__(self, main, "spr_title_backdrop", 1, True)
+        self.image_speed = 0

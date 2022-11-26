@@ -7,6 +7,8 @@ class obj_Skill_Select_Menu(core.Object):
     def __init__(self, main):
         core.Object.__init__(self, main, "spr_warrior_skill_1", 5, True)
 
+        self.menu = core.instance_create(main, self.x, self.y, obj_Skill_Menu_Image(main))
+
         self.image_speed = 0
     
     def create(self, main):
@@ -105,4 +107,10 @@ class obj_Skill_Select_Menu(core.Object):
             else:
                 main.create_run()
                 music_core.scr_set_song(main, constants.SNG_DUNGEON)
+                core.instance_destroy(main, self.menu)
                 core.instance_destroy(main, self)
+
+class obj_Skill_Menu_Image(core.Object):
+    def __init__(self, main):
+        core.Object.__init__(self, main, "spr_skill_select_backdrop", 1, True)
+        self.image_speed = 0
