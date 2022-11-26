@@ -244,6 +244,13 @@ def engine_main():
     
     #Set the PyGame Clock
     clock = pygame.time.Clock()
+
+    #Setup the Controllers
+    pygame.joystick.init()
+    joysticks = [pygame.joystick.Joystick(i) for i in range(pygame.joystick.get_count())]
+    for joystick in joysticks:
+        print(joystick.get_name())
+
     
     #Create the Manager
     main = MainManager()
@@ -263,77 +270,180 @@ def engine_main():
                 running = False
             
             #Event: INPUT
-            if event.type==pygame.KEYDOWN:
-                if event.key==pygame.K_LEFT:
-                    if main.im.left != 1:
-                        main.im.left_pressed = 1
-                    
-                    main.im.left = 1
-                else:
-                    main.im.left = 0
-                    main.im.left_pressed = 0
+            if (len(joysticks) > 0):
+                if event.type==pygame.JOYBUTTONDOWN:
+                    if event.button == 13:
+                        if main.im.left != 1:
+                            main.im.left_pressed = 1
+                        
+                        main.im.left = 1
+                    else:
+                        main.im.left = 0
+                        main.im.left_pressed = 0
 
-                if event.key==pygame.K_RIGHT:
-                    if main.im.right != 1:
-                        main.im.right_pressed = 1
-                    
-                    main.im.right = 1
-                else:
-                    main.im.right = 0
-                    main.im.right_pressed = 0
+                    if event.button == 14:
+                        if main.im.right != 1:
+                            main.im.right_pressed = 1
+                        
+                        main.im.right = 1
+                    else:
+                        main.im.right = 0
+                        main.im.right_pressed = 0
 
-                if event.key==pygame.K_UP:
-                    if main.im.up != 1:
-                        main.im.up_pressed = 1
-                    
-                    main.im.up = 1
-                else:
-                    main.im.up = 0
-                    main.im.up_pressed = 0
+                    if event.button == 11:
+                        if main.im.up != 1:
+                            main.im.up_pressed = 1
+                        
+                        main.im.up = 1
+                    else:
+                        main.im.up = 0
+                        main.im.up_pressed = 0
 
-                if event.key==pygame.K_DOWN:
-                    if main.im.down != 1:
-                        main.im.down_pressed = 1
-                    
-                    main.im.down = 1
-                else:
-                    main.im.down = 0
-                    main.im.down_pressed = 0
-                
-                if event.key==pygame.K_z:
-                    if main.im.a != 1:
-                        main.im.a_pressed = 1
-                    
-                    main.im.a = 1
-                else:
-                    main.im.a = 0
-                    main.im.a_pressed = 0
+                    if event.button == 12:
+                        if main.im.down != 1:
+                            main.im.down_pressed = 1
+                        
+                        main.im.down = 1
+                    else:
+                        main.im.down = 0
+                        main.im.down_pressed = 0
+                    #A
+                    if event.button==1:
+                        if main.im.a != 1:
+                            main.im.a_pressed = 1
+                        
+                        main.im.a = 1
+                    else:
+                        main.im.a = 0
+                        main.im.a_pressed = 0
+                    #B
+                    if event.button==0:
+                        if main.im.b != 1:
+                            main.im.b_pressed = 1
+                        
+                        main.im.b = 1
+                    else:
+                        main.im.b = 0
+                        main.im.b_pressed = 0
 
-                if event.key==pygame.K_x:
-                    if main.im.b != 1:
-                        main.im.b_pressed = 1
+                    #X
+                    if event.button==3:
+                        if main.im.x != 1:
+                            main.im.x_pressed = 1
+                        
+                        main.im.x = 1
+                    else:
+                        main.im.x = 0
+                        main.im.x_pressed = 0
+
+                    #Y
+                    if event.button==2:
+                        if main.im.y != 1:
+                            main.im.y_pressed = 1
+                        
+                        main.im.y = 1
+                    else:
+                        main.im.y = 0
+                        main.im.y_pressed = 0
+
+                    #Z
+                    if event.button==4:
+                        if main.im.z != 1:
+                            main.im.z_pressed = 1
+                        
+                        main.im.z = 1
+                    else:
+                        main.im.z = 0
+                        main.im.z_pressed = 0
+                        
+                if event.type==pygame.JOYBUTTONUP:
+                    if event.button == 13:
+                        main.im.left_pressed = 0
+                        main.im.left = 0
+                        
+                    if event.button == 14:
+                        main.im.right_pressed = 0
+                        main.im.right = 0
+                        
+                    if event.button == 11:
+                        main.im.up_pressed = 0
+                        main.im.up = 0
+                        
+                    if event.button == 12:
+                        main.im.down_pressed = 0
+                        main.im.down = 0
+            else:
+                if event.type==pygame.KEYDOWN:
+                    if event.key==pygame.K_LEFT:
+                        if main.im.left != 1:
+                            main.im.left_pressed = 1
+                        
+                        main.im.left = 1
+                    else:
+                        main.im.left = 0
+                        main.im.left_pressed = 0
+
+                    if event.key==pygame.K_RIGHT:
+                        if main.im.right != 1:
+                            main.im.right_pressed = 1
+                        
+                        main.im.right = 1
+                    else:
+                        main.im.right = 0
+                        main.im.right_pressed = 0
+
+                    if event.key==pygame.K_UP:
+                        if main.im.up != 1:
+                            main.im.up_pressed = 1
+                        
+                        main.im.up = 1
+                    else:
+                        main.im.up = 0
+                        main.im.up_pressed = 0
+
+                    if event.key==pygame.K_DOWN:
+                        if main.im.down != 1:
+                            main.im.down_pressed = 1
+                        
+                        main.im.down = 1
+                    else:
+                        main.im.down = 0
+                        main.im.down_pressed = 0
                     
-                    main.im.b = 1
-                else:
-                    main.im.b = 0
-                    main.im.b_pressed = 0
-                    
-            if event.type==pygame.KEYUP:
-                if event.key==pygame.K_LEFT:
-                    main.im.left_pressed = 0
-                    main.im.left = 0
-                    
-                if event.key==pygame.K_RIGHT:
-                    main.im.right_pressed = 0
-                    main.im.right = 0
-                    
-                if event.key==pygame.K_UP:
-                    main.im.up_pressed = 0
-                    main.im.up = 0
-                    
-                if event.key==pygame.K_DOWN:
-                    main.im.down_pressed = 0
-                    main.im.down = 0
+                    if event.key==pygame.K_z:
+                        if main.im.a != 1:
+                            main.im.a_pressed = 1
+                        
+                        main.im.a = 1
+                    else:
+                        main.im.a = 0
+                        main.im.a_pressed = 0
+
+                    if event.key==pygame.K_x:
+                        if main.im.b != 1:
+                            main.im.b_pressed = 1
+                        
+                        main.im.b = 1
+                    else:
+                        main.im.b = 0
+                        main.im.b_pressed = 0
+                        
+                if event.type==pygame.KEYUP:
+                    if event.key==pygame.K_LEFT:
+                        main.im.left_pressed = 0
+                        main.im.left = 0
+                        
+                    if event.key==pygame.K_RIGHT:
+                        main.im.right_pressed = 0
+                        main.im.right = 0
+                        
+                    if event.key==pygame.K_UP:
+                        main.im.up_pressed = 0
+                        main.im.up = 0
+                        
+                    if event.key==pygame.K_DOWN:
+                        main.im.down_pressed = 0
+                        main.im.down = 0
 
                 
 
