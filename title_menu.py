@@ -1,7 +1,6 @@
 import core
 import constants
 import music_core
-from class_select_menu import obj_Class_Select_Menu
 
 class obj_Title_Menu(core.Object):
     def __init__(self, main):
