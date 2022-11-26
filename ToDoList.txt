@@ -3,10 +3,7 @@ THINGS TO DO FOR THE PROJECT
 
 Programming/Bug Fixing (Luke & Lucas)
 -----------
-Fix Cooldown Error
-Fix UI Output Error
-Setup Correct Inputs
-Create a few more enemy types
+Extra Code As Needed for Other Features
 
 
 Testing (Mo)
