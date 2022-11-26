@@ -4,8 +4,8 @@ import font_scripts
 from active_skill import Skill
 
 class obj_Skill_UI(core.Object):
-    def __init__(self):
-        core.Object.__init__(self, "spr_textbox", 1, False)
+    def __init__(self, main):
+        core.Object.__init__(self, main, "spr_textbox", 1, False)
 
         self.image_speed = 0
     

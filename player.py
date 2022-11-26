@@ -11,12 +11,12 @@ import music_core
 from font_scripts import scr_place_object_text
 import weapons
 import dungeon_room as dr
-from weapons import obj_Bullet, obj_Weapon
+from weapons import obj_Weapon
 from game_over_menu import obj_Game_Over_Menu
 
 class Player(core.Object):
-    def __init__(self, name, ch_class, skills):
-        core.Object.__init__(self, "spr_player_right", 24, True)
+    def __init__(self, main, name, ch_class, skills):
+        core.Object.__init__(self, main, "spr_player_right", 24, True)
         
         self.name = name
         self.character_class = ch_class
@@ -43,7 +43,7 @@ class Player(core.Object):
 
         self.direction = [1, 0]
 
-        self.hud = core.instance_create(main, 0, 0, Player_HUD(self))
+        self.hud = core.instance_create(main, 0, 0, Player_HUD(main, self))
 
         self.slam_active = False
         self.bashing = False
@@ -59,7 +59,7 @@ class Player(core.Object):
             self.health = 0
             self.alive = False
             main.main_player = -1
-            core.instance_create(main, 0, 0, obj_Game_Over_Menu(self.gold * main.current_room.difficulty))
+            core.instance_create(main, 0, 0, obj_Game_Over_Menu(main, self.gold * main.current_room.difficulty))
             main.current_room = -1
             core.instance_destroy(main, self)
         elif (self.alive):
@@ -456,55 +456,32 @@ class Player(core.Object):
         weapon = -1
 
         if (weapon_sprite == "spr_whirlwind"):
-            weapon = core.instance_create(main, self.x - 16, self.y - 16, obj_Weapon())
+            weapon = core.instance_create(main, self.x - 16, self.y - 16, obj_Weapon(main))
             weapon.sprite_index = weapon_sprite
             weapon.image_index = 0
         else:
             if (self.direction[0] == 1):
-                weapon = core.instance_create(main, self.x + 24, self.y, obj_Weapon())
+                weapon = core.instance_create(main, self.x + 24, self.y, obj_Weapon(main))
                 weapon.sprite_index = weapon_sprite
                 weapon.image_index = 0
             elif (self.direction[0] == -1):
-                weapon = core.instance_create(main, self.x - 24, self.y, obj_Weapon())
+                weapon = core.instance_create(main, self.x - 24, self.y, obj_Weapon(main))
                 weapon.sprite_index = weapon_sprite
                 weapon.image_index = 1
             elif (self.direction[1] == 1):
-                weapon = core.instance_create(main, self.x, self.y + 24, obj_Weapon())
+                weapon = core.instance_create(main, self.x, self.y + 24, obj_Weapon(main))
                 weapon.sprite_index = weapon_sprite
                 weapon.image_index = 2
             elif (self.direction[1] == -1):
-                weapon = core.instance_create(main, self.x, self.y - 24, obj_Weapon())
+                weapon = core.instance_create(main, self.x, self.y - 24, obj_Weapon(main))
                 weapon.sprite_index = weapon_sprite
                 weapon.image_index = 3
 
         return weapon
 
-    def ranged_attack(self, main, attack_sprite, bullet_sprite):
-        weapon = -1
-
-        self.sprite_index = attack_sprite
-
-        if (self.direction[0] == 1):
-            weapon = core.instance_create(main, self.x + 24, self.y, obj_Bullet())
-            self.image_index = 0
-        elif (self.direction[0] == -1):
-            weapon = core.instance_create(main, self.x - 24, self.y, obj_Bullet())
-            self.image_index = 1
-        elif (self.direction[1] == 1):
-            weapon = core.instance_create(main, self.x, self.y + 24, obj_Bullet())
-            self.image_index = 2
-        elif (self.direction[1] == -1):
-            weapon = core.instance_create(main, self.x, self.y - 24, obj_Bullet())
-            self.image_index = 3
-
-        weapon.sprite_index = bullet_sprite
-        weapon.direction = [self.direction[0], self.direction[1]]
-
-        return weapon
-
 class Player_HUD(core.Object):
-    def __init__(self, player):
-        core.Object.__init__(self, "spr_player_hud", 1, True)
+    def __init__(self, main, player):
+        core.Object.__init__(self, main, "spr_player_hud", 1, True)
 
         self.player = player
         self.x = 8

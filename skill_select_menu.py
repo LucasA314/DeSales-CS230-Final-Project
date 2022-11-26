@@ -3,8 +3,8 @@ import music_core
 from active_skill import Skill
 
 class obj_Skill_Select_Menu(core.Object):
-    def __init__(self):
-        core.Object.__init__(self, "spr_warrior_skill_1", 5, True)
+    def __init__(self, main):
+        core.Object.__init__(self, main, "spr_warrior_skill_1", 5, True)
 
         self.image_speed = 0
     

@@ -9,8 +9,8 @@ Created on Sun Oct  2 12:44:04 2022
 import core
 
 class obj_letter(core.Object):
-	def __init__(self):
-		core.Object.__init__(self, "spr_lowercase_letters", 56, True)
+	def __init__(self, main):
+		core.Object.__init__(self, main, "spr_lowercase_letters", 56, True)
 	
 	def create(self, main):
 		#Freeze

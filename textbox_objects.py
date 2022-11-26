@@ -11,8 +11,8 @@ from core import *
 from font_scripts import *
 
 class obj_textbox(Object):
-	def __init__(self):
-		Object.__init__(self, "spr_ui_box", 1, True)
+	def __init__(self, main):
+		Object.__init__(self, main, "spr_ui_box", 1, True)
 	
 	def create(self, main):
 		#Initialize Variables
@@ -30,7 +30,7 @@ class obj_textbox(Object):
 		
 		
 		#Create the Cursor
-		self.cursor = instance_create(main, self.x, self.y, obj_textbox_cursor())
+		self.cursor = instance_create(main, self.x, self.y, obj_textbox_cursor(main))
 		
 		return main
 	
@@ -161,5 +161,5 @@ class obj_textbox(Object):
 		return main
 	
 class obj_textbox_cursor(Object):
-	def __init__(self):
-		Object.__init__(self, "spr_text_cursor", 1, False)
+	def __init__(self, main):
+		Object.__init__(self, main, "spr_text_cursor", 1, False)

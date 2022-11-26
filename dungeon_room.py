@@ -30,7 +30,7 @@ class DungeonRoom():
                 self.movement[r][c] = 0
 
         self.generate_room(main, self.difficulty)
-        instance_create(main, 0, 0, obj_Skill_UI())
+        instance_create(main, 0, 0, obj_Skill_UI(main))
 
         #Add Intro Text
         messageToPrint = [[
@@ -503,10 +503,10 @@ def generate_enemy(main, x, y):
     enemy_index = random.randint(0, len(enemies) - 1)
 
     if enemy_index == 0:
-        instance_create(main, x, y, enemy.obj_Blob())
+        instance_create(main, x, y, enemy.obj_Blob(main))
     elif (enemy_index  == 1):
-        instance_create(main, x, y, enemy.obj_Bat())
+        instance_create(main, x, y, enemy.obj_Bat(main))
     elif (enemy_index  == 2):
-        instance_create(main, x, y, enemy.obj_Spike())
+        instance_create(main, x, y, enemy.obj_Spike(main))
     
     

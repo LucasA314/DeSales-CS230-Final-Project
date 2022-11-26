@@ -96,6 +96,9 @@ class MainManager():
     def __init__(self):
         self.quit = False
 
+        self.screen_width = 640
+        self.screen_height = 360
+
         #Load all Sprites
         self.sprites = load_all_sprites()
         
@@ -127,7 +130,7 @@ class MainManager():
         self.player_weapon = -1
         
         #Create Textbox
-        self.textbox = core.instance_create(self, 0, 0, textbox_objects.obj_textbox())
+        self.textbox = core.instance_create(self, 0, 0, textbox_objects.obj_textbox(self))
         self.textbox.visible = False
 
         #Define Skill Info
@@ -147,7 +150,7 @@ class MainManager():
         music_core.audio_play_sound(self, SNG_NULL[MUSIC_INTRO_SEGMENT], False)
 
         #Create the Title Screen
-        core.instance_create(self, 0, 0, title_menu.obj_Title_Menu())
+        core.instance_create(self, 0, 0, title_menu.obj_Title_Menu(self))
         
     #Run Every Frame
     def update(self):
@@ -209,7 +212,7 @@ class MainManager():
         self.test_room = dr.DungeonRoom(self, 40, 20, 1)
         
         #Create the Player
-        self.main_player = core.instance_create(self, 32, 32, player.Player("Lucas", self.selected_class, self.selected_skills))
+        self.main_player = core.instance_create(self, 32, 32, player.Player(self, "Lucas", self.selected_class, self.selected_skills))
 
         #Show the Textbox
         self.textbox.visible = True
@@ -237,10 +240,10 @@ def engine_main():
     pygame.display.set_caption('CS230 Project')
     
     #Create a Surface on the Screen
-    screen = pygame.display.set_mode((640, 360))
+    screen = pygame.display.set_mode((640, 360), pygame.RESIZABLE)
     
     #Create a Background Fill
-    screen.fill(pygame.Color('#ffefff'))
+    screen.fill(pygame.Color('#000000'))
     
     #Define a variable for the main loop
     running = True
@@ -266,6 +269,10 @@ def engine_main():
         #Check for a Main Quit
         if (main.quit):
             running = False
+
+        
+        #Update the Screen Size
+        main.screen_width, main.screen_height = screen.get_size()
 
 
         #Event Handling
@@ -462,7 +469,7 @@ def engine_main():
                 main.objects[i].update(main)
         
         #Clear the Old Screen
-        screen.fill(pygame.Color('#ffefff'))
+        screen.fill(pygame.Color('#000000'))
 
         #Draw Graphics
         if (main.current_room != -1):

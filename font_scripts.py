@@ -35,7 +35,7 @@ def scr_draw_string(main, s_x, s_y, string, centering):
 		elif (string[i][0] != LETTER_CONSTANTS.SPACE.value - 1 or spaceCounter != 0):
 		
 			#Create the New Letter and Store It for Future Deletion
-			newLetter = instance_create(main, s_x + (spaceCounter * centering), s_y + (drawLine * 2 * LETTER_SPACING), obj_letter())			
+			newLetter = instance_create(main, s_x + (spaceCounter * centering), s_y + (drawLine * 2 * LETTER_SPACING), obj_letter(main))			
 			current_message.append(newLetter)
 			
 			#Alter Spacing for Apostrophe '

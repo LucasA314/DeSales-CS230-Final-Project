@@ -3,8 +3,8 @@ from constants import EVENTS_LIST, GAME_STATES
 from title_menu import obj_Title_Menu
 
 class obj_Game_Over_Menu(core.Object):
-    def __init__(self, score):
-        core.Object.__init__(self, "spr_game_over_menu", 1, True)
+    def __init__(self, main, score):
+        core.Object.__init__(self, main, "spr_game_over_menu", 1, True)
         
         self.score = score
     
@@ -36,5 +36,5 @@ class obj_Game_Over_Menu(core.Object):
         if (main.im.a and main.sub_state != GAME_STATES.DIALOGUE.value):
             main.im.a = False
 
-            core.instance_create(main, 0, 0, obj_Title_Menu())
+            core.instance_create(main, 0, 0, obj_Title_Menu(main))
             core.instance_destroy(main, self)

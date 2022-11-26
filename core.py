@@ -9,7 +9,7 @@ import math
 TILE_SIZE = 16
 
 class Object():
-    def __init__(self, spr, frms, vis):
+    def __init__(self, main, spr, frms, vis):
         #Initialize
         self.x = 0
         self.y = 0
@@ -19,6 +19,9 @@ class Object():
         self.image_index = 0
         self.image_speed = 1
         self.image_alpha = 1
+        
+        self.image_width = main.sprites[spr][0].get_width()
+        self.image_height = main.sprites[spr][0].get_height()
         
         self.indexing = -1
     

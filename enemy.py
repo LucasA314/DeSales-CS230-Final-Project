@@ -6,8 +6,8 @@ import gold
 import random
 
 class obj_Enemy(core.Object):
-    def __init__(self, sprite, frames):
-        core.Object.__init__(self, sprite, frames, True)
+    def __init__(self, main, sprite, frames):
+        core.Object.__init__(self, main, sprite, frames, True)
 
         
 
@@ -130,14 +130,14 @@ class obj_Enemy(core.Object):
             threshold = random.randint(1, 100)
 
             if (self.drop_chance <= (threshold/100.0)):
-                core.instance_create(main, self.x, self.y, gold.obj_Gold(self.drop_amount))
+                core.instance_create(main, self.x, self.y, gold.obj_Gold(main, self.drop_amount))
 
             main.current_room.num_enemies -= 1
 
 
 class obj_Blob(obj_Enemy):
-    def __init__(self):
-        obj_Enemy.__init__(self, "spr_blob", 18)
+    def __init__(self, main):
+        obj_Enemy.__init__(self, main, "spr_blob", 18)
 
     def create(self, main):
         obj_Enemy.create(self, main)
@@ -147,8 +147,8 @@ class obj_Blob(obj_Enemy):
 
 
 class obj_Bat(obj_Enemy):
-    def __init__(self):
-        obj_Enemy.__init__(self, "spr_bat", 12)
+    def __init__(self, main):
+        obj_Enemy.__init__(self, main, "spr_bat", 12)
 
     def create(self, main):
         obj_Enemy.create(self, main)
@@ -180,8 +180,8 @@ class obj_Bat(obj_Enemy):
 
 
 class obj_Spike(obj_Enemy):
-    def __init__(self):
-        obj_Enemy.__init__(self, "spr_spike", 18)
+    def __init__(self, main):
+        obj_Enemy.__init__(self, main, "spr_spike", 18)
 
     def create(self, main):
         obj_Enemy.create(self, main)

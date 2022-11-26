@@ -3,8 +3,8 @@ import music_core
 from class_select_menu import obj_Class_Select_Menu
 
 class obj_Title_Menu(core.Object):
-    def __init__(self):
-        core.Object.__init__(self, "spr_title_menu", 2, True)
+    def __init__(self, main):
+        core.Object.__init__(self, main, "spr_title_menu", 2, True)
 
         self.image_speed = 0
     
@@ -32,7 +32,7 @@ class obj_Title_Menu(core.Object):
 
             if (self.option == 0):
         
-                core.instance_create(main, 0, 0, obj_Class_Select_Menu())
+                core.instance_create(main, 0, 0, obj_Class_Select_Menu(main))
                 core.instance_destroy(main, self)
             else:
                 main.quit = False

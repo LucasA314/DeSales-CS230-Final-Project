@@ -2,8 +2,8 @@ import core
 from skill_select_menu import obj_Skill_Select_Menu
 
 class obj_Class_Select_Menu(core.Object):
-    def __init__(self):
-        core.Object.__init__(self, "spr_class_select_menu", 3, True)
+    def __init__(self, main):
+        core.Object.__init__(self, main, "spr_class_select_menu", 3, True)
 
         self.image_speed = 0
     
@@ -13,7 +13,7 @@ class obj_Class_Select_Menu(core.Object):
         #SKIP THIS MENU
         main.selected_class = "warrior"
 
-        core.instance_create(main, 0, 0, obj_Skill_Select_Menu())
+        core.instance_create(main, 0, 0, obj_Skill_Select_Menu(main))
         core.instance_destroy(main, self)
 
     def update(self, main):
@@ -45,5 +45,5 @@ class obj_Class_Select_Menu(core.Object):
             else:
                 main.selected_class = "mage"
             
-            core.instance_create(main, 0, 0, obj_Skill_Select_Menu())
+            core.instance_create(main, 0, 0, obj_Skill_Select_Menu(main))
             core.instance_destroy(main, self)
