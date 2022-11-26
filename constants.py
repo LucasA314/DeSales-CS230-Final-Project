@@ -126,3 +126,21 @@ class EVENTS_LIST(Enum):
 TEXT_SLOW =4
 TEXT_MEDIUM =2
 TEXT_FAST =1
+
+
+#Music System Constants
+'''
+	Constants used for Indexing Music Tracks. This is because music tracks can have an intro segment,
+	looping segment, or both. A null is used to denote a missing segment.
+'''
+
+#Music Index Constants
+NULL_MUSIC_SEGMENT  = -1
+MUSIC_INTRO_SEGMENT  = 0
+MUSIC_LOOP_SEGMENT   = 1
+
+#Null Song
+SNG_NULL = ['snd_null' , 'snd_null']
+SNG_TITLE = ['snd_null' , 'snd_null']
+SNG_DUNGEON = ['snd_null' , 'snd_null']
+SNG_GAME_OVER = ['snd_null' , 'snd_null']

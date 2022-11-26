@@ -7,6 +7,7 @@ import pygame
 import os
 
 import core
+import music_core
 import events_core as ec
 from constants import *
 import player
@@ -136,6 +137,13 @@ class MainManager():
         self.high_score = int(score_file.readline())
         score_file.close()
 
+        self.previous_song = SNG_NULL		   #The Song that Last Played
+        self.current_song  = SNG_NULL		   #The Song that Is Currently Playing
+        self.currently_playing = SNG_NULL[MUSIC_INTRO_SEGMENT]
+		
+		#Play the Null Song to Start
+        music_core.audio_play_sound(self, SNG_NULL[MUSIC_INTRO_SEGMENT], False)
+
         #Create the Title Screen
         core.instance_create(self, 0, 0, title_menu.obj_Title_Menu())
         
@@ -145,6 +153,9 @@ class MainManager():
         if (self.current_room != -1 and self.current_room.num_enemies == 0 and not self.current_room.exit_exists):
             self.current_room.create_exit()
 
+        #Update Music
+        music_core.scr_music_system(self, self.previous_song, self.current_song)
+            
         #Update Events
         
         #Reset the Stack Index
@@ -186,6 +197,9 @@ class MainManager():
                 
                     #Remove the Event From the Queue
                     self.event_queue.pop(0)    
+
+        if not pygame.mixer.music.get_busy():
+            self.currently_playing = SNG_NULL[MUSIC_INTRO_SEGMENT]
 
     def create_run(self):
         #Create a Test Room

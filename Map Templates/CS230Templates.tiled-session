@@ -3,8 +3,9 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "rm015.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -217,21 +218,35 @@
     "map.tileWidth": 16,
     "map.width": 26,
     "openFiles": [
+        "BasicTiles.tsx",
+        "rm000.tmx",
+        "rm001.tmx",
+        "rm005.tmx",
+        "rm006.tmx",
+        "rm007.tmx",
+        "rm008.tmx",
+        "rm009.tmx",
+        "rm010.tmx",
+        "rm011.tmx",
+        "rm012.tmx",
+        "rm013.tmx",
+        "rm014.tmx",
+        "rm015.tmx"
     ],
     "project": "CS230Templates.tiled-project",
     "recentFiles": [
-        "rm007.tmx",
-        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightTiles.tsx",
-        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightClause.tmx",
-        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCrossoverGadget.tmx",
-        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightCastle.tsx",
-        "C:/Users/lucas/OneDrive/Documents/College/SM7 DeSales Fall 2022/MA453 - Senior Seminar/ShovelKnightGate.tsx",
         "BasicTiles.tsx",
+        "rm000.tmx",
         "rm001.tmx",
-        "rm002.tmx",
-        "rm003.tmx",
-        "rm004.tmx",
-        "rm000.tmx"
+        "rm005.tmx",
+        "rm006.tmx",
+        "rm007.tmx",
+        "rm008.tmx",
+        "rm009.tmx",
+        "rm010.tmx",
+        "rm011.tmx",
+        "rm012.tmx",
+        "rm013.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
