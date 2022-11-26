@@ -145,6 +145,13 @@ class obj_Blob(obj_Enemy):
         self.hp = 10
         self.damage = 5
 
+        direc = random.randint(0, 1)
+
+        if (direc == 0):
+            self.image_xscale = 1
+        else:
+            self.image_xscale = -1
+
 
 class obj_Bat(obj_Enemy):
     def __init__(self, main):
@@ -176,6 +183,10 @@ class obj_Bat(obj_Enemy):
             self.x = max(32, min(self.x + self.h_move, main.current_room.room_width * constants.TILE_SIZE - 32))
             self.y = max(32, min(self.y + self.v_move, main.current_room.room_height * constants.TILE_SIZE - 32))
 
+        if (self.h_move > 0):
+            self.image_xscale = 1
+        elif (self.h_move < 0):
+            self.image_xscale = -1
             
 
 
@@ -243,6 +254,11 @@ class obj_Spike(obj_Enemy):
                         i += 1
                 
                 self.x += self.speed
+
+                if (self.speed > 0):
+                    self.image_xscale = 1
+                elif (self.speed < 0):
+                    self.image_xscale = -1
             
         else:
             #Vertical Collisions
@@ -279,3 +295,8 @@ class obj_Spike(obj_Enemy):
                     i += 1
             
             self.y += self.speed
+
+            if (self.speed > 0):
+                self.image_yscale = 1
+            elif (self.speed < 0):
+                self.image_yscale = -1

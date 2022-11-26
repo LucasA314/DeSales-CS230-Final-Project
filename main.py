@@ -77,6 +77,13 @@ def draw_sprites(screen, object_list, sprite_list):
 
             img = sprite_list[obj.sprite_index][obj.image_index]
             img.set_alpha(int(obj.image_alpha * 255))
+            img = pygame.transform.scale(img, (obj.image_width * abs(obj.image_xscale), obj.image_height * abs(obj.image_yscale)))
+            
+            if (obj.image_xscale < 0):
+                img = pygame.transform.flip(img, True, False)
+            if (obj.image_yscale < 0):
+                img = pygame.transform.flip(img, False, True)
+            
             screen.blit(img,(obj.x, obj.y))
             
             if obj.image_speed == 1:
@@ -98,6 +105,9 @@ class MainManager():
 
         self.screen_width = 640
         self.screen_height = 360
+
+        self.screen_xscale = 1
+        self.screen_yscale = 1
 
         #Load all Sprites
         self.sprites = load_all_sprites()
@@ -273,6 +283,8 @@ def engine_main():
         
         #Update the Screen Size
         main.screen_width, main.screen_height = screen.get_size()
+        main.screen_xscale = main.screen_width * 1.0 / BASE_WIDTH
+        main.screen_yscale = main.screen_height * 1.0 / BASE_HEIGHT
 
 
         #Event Handling

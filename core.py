@@ -19,10 +19,13 @@ class Object():
         self.image_index = 0
         self.image_speed = 1
         self.image_alpha = 1
-        
+
         self.image_width = main.sprites[spr][0].get_width()
         self.image_height = main.sprites[spr][0].get_height()
         
+        self.image_xscale = 1
+        self.image_yscale = 1
+
         self.indexing = -1
     
     def create(self, main):

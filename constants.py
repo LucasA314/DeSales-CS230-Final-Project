@@ -11,6 +11,9 @@ from enum import auto
 
 TILE_SIZE = 16
 
+BASE_WIDTH = 640
+BASE_HEIGHT = 360
+
 # Font Constants
 '''
 	All constants required for the custom font and text display system.

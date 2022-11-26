@@ -366,9 +366,11 @@ class Player(core.Object):
             #Set a Direction and Update Animations
             if (self.hsp > 0):
                 self.direction = [1, 0]
+                self.image_xscale = 1
                 self.sprite_index = "spr_player_right"
             elif (self.hsp < 0):
                 self.direction = [-1, 0]
+                self.image_xscale = -1
                 self.sprite_index = "spr_player_left"
 
             if (self.vsp > 0):
