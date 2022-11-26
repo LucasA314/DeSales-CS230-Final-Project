@@ -1,22 +1,21 @@
 THINGS TO DO FOR THE PROJECT
 ----------------------------
 
-Programming/Bug Fixing
+Programming/Bug Fixing (Luke & Lucas)
 -----------
-Fix Cooldown Error (Luke)
-Fix UI Output Error (Luke)
-Setup Correct Inputs (Luke)
+Fix Cooldown Error
+Fix UI Output Error
+Setup Correct Inputs
+Create a few more enemy types
 
-Game Design
------------
-Create a few more enemy types (Lucas)
 
-Effects
+Testing (Mo)
 -------
-Add Music/SFX (Sam)
+Bug Testing
+Test with Raspberry Pi
+
+
+Misc
+-------
+Add Music/SFX (Sam & Lucas)
 Get Better Graphics (Gabby)
-
-Testing
--------
-Bug Testing (Mo)
-Test with Raspberry Pi (Mo)
