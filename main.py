@@ -308,7 +308,7 @@ def engine_main():
                         main.im.down = 0
                         main.im.down_pressed = 0
                     #A
-                    if event.button==1:
+                    if event.button==0:
                         if main.im.a != 1:
                             main.im.a_pressed = 1
                         
@@ -317,7 +317,7 @@ def engine_main():
                         main.im.a = 0
                         main.im.a_pressed = 0
                     #B
-                    if event.button==0:
+                    if event.button==1:
                         if main.im.b != 1:
                             main.im.b_pressed = 1
                         
@@ -327,7 +327,7 @@ def engine_main():
                         main.im.b_pressed = 0
 
                     #X
-                    if event.button==3:
+                    if event.button==2:
                         if main.im.x != 1:
                             main.im.x_pressed = 1
                         
@@ -337,7 +337,7 @@ def engine_main():
                         main.im.x_pressed = 0
 
                     #Y
-                    if event.button==2:
+                    if event.button==3:
                         if main.im.y != 1:
                             main.im.y_pressed = 1
                         
@@ -347,7 +347,7 @@ def engine_main():
                         main.im.y_pressed = 0
 
                     #Z
-                    if event.button==4:
+                    if event.button==9:
                         if main.im.z != 1:
                             main.im.z_pressed = 1
                         

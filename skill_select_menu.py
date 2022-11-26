@@ -75,7 +75,7 @@ class obj_Skill_Select_Menu(core.Object):
                     elif (self.option == 2):
                         main.selected_skills.append(Skill(main, "relentless", "Relentless", "Passive", 0, 0))
                     elif (self.option == 3):
-                        main.selected_skills.append(Skill(main, "heroic_strike", "Heroic Strike", "Active", 5 * 60, 0))
+                        main.selected_skills.append(Skill(main, "heroic_strike", "Heroic Strike", "Passive", 5 * 60, 0))
                     elif (self.option == 4):
                         main.selected_skills.append(Skill(main, "blood_strike", "Blood Strike", "Active", 1 * 60, 0))
                 elif (self.skill == 3):
@@ -84,7 +84,7 @@ class obj_Skill_Select_Menu(core.Object):
                     elif (self.option == 1):
                         main.selected_skills.append(Skill(main, "recklessness", "Recklessness", "Passive", 0, 0))
                     elif (self.option == 2):
-                        main.selected_skills.append(Skill(main, "shield_block", "Shield Block", "Active", 8 * 60, 0))
+                        main.selected_skills.append(Skill(main, "shield_block", "Shield Block", "Active", 8 * 60, 2 * 60))
                     elif (self.option == 3):
                         main.selected_skills.append(Skill(main, "ravage", "Ravage", "Active", 6 * 60, 2 * 60))
                     elif (self.option == 4):
