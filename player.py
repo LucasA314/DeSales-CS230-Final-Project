@@ -180,7 +180,7 @@ class Player(core.Object):
             self.y += self.vsp
 
             #Collision With Stairs
-            if (core.tile_at_coord(main.current_room.tiles, self.x + 16, self.y + 16) == 2):
+            if (core.tile_at_coord(main.current_room.tiles, self.x + 16, self.y + 16) == 7):
                 music_core.audio_play_sfx(main, "sfx_use_stairs", False)
 
                 main.current_room = dr.DungeonRoom(main, 40, 20, main.current_room.difficulty + 1)

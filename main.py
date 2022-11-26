@@ -100,8 +100,8 @@ class MainManager():
         self.sprites = load_all_sprites()
         
         #Load Tilesets
-        self.basic_tilemap_image = pygame.image.load(os.path.join('tilesets', 'til_basic_tiles.png'))
-        self.basic_tiles = strip_from_sheet(self.basic_tilemap_image, (0, 0), (core.TILE_SIZE, core.TILE_SIZE), 2, 3)
+        self.basic_tilemap_image = pygame.image.load(os.path.join('tilesets', 'til_fancy_tiles.png'))
+        self.basic_tiles = strip_from_sheet(self.basic_tilemap_image, (0, 0), (core.TILE_SIZE, core.TILE_SIZE), 4, 3)
         
         #Create an Input Manager
         self.im = core.InputManager()

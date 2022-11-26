@@ -64,7 +64,24 @@ class DungeonRoom():
         for r in range(self.room_height):
             for c in range(self.room_width):
                 if (self.tiles[r][c] == 1):
-                    self.set_tile(c, r, 1, 1)
+                    self.set_tile(c, r, 10, 1)
+
+                    
+        #Randomize Normal Tiles
+        for r in range(self.room_height):
+            for c in range(self.room_width):
+                if (self.tiles[r][c] == 0):
+                    row = random.randint(0, 1)
+                    col = 0
+
+                    if (row == 0):
+                        col = random.randint(0, 2)
+                    elif (row == 1):
+                        col = random.randint(4, 6)
+                    else:
+                        col = random.randint(8, 9)
+
+                    self.set_tile(c, r, col, 0)
 
         
     #Find and Place a Start Position
@@ -89,16 +106,16 @@ class DungeonRoom():
         while (not exit_placed):
             potential_tile = [random.randint(1, self.room_width - 3), random.randint(1, self.room_height - 3)]
 
-            if (self.tiles[potential_tile[1]][potential_tile[0]] == 0
-                and self.tiles[potential_tile[1] + 1][potential_tile[0] + 1] == 0
-                and self.tiles[potential_tile[1] + 0][potential_tile[0] + 1] == 0
-                and self.tiles[potential_tile[1] + 1][potential_tile[0] + 0] == 0):
+            if (self.movement[potential_tile[1]][potential_tile[0]] == 0
+                and self.movement[potential_tile[1] + 1][potential_tile[0] + 1] == 0
+                and self.movement[potential_tile[1] + 0][potential_tile[0] + 1] == 0
+                and self.movement[potential_tile[1] + 1][potential_tile[0] + 0] == 0):
                 
                 
-                self.set_tile(potential_tile[0] + 0, potential_tile[1] + 0, 2, 0)
-                self.set_tile(potential_tile[0] + 1, potential_tile[1] + 1, 2, 0)
-                self.set_tile(potential_tile[0] + 1, potential_tile[1] + 0, 2, 0)
-                self.set_tile(potential_tile[0] + 0, potential_tile[1] + 1, 2, 0)
+                self.set_tile(potential_tile[0] + 0, potential_tile[1] + 0, 7, 0)
+                self.set_tile(potential_tile[0] + 1, potential_tile[1] + 1, 7, 0)
+                self.set_tile(potential_tile[0] + 1, potential_tile[1] + 0, 7, 0)
+                self.set_tile(potential_tile[0] + 0, potential_tile[1] + 1, 7, 0)
                 exit_placed = True
 
         self.exit_exists = True
@@ -115,10 +132,10 @@ class DungeonRoom():
                 and self.tiles[potential_tile[1] + 1][potential_tile[0] + 0] == 0):
                 
                 
-                self.set_tile(potential_tile[0] + 0, potential_tile[1] + 0, 4, 0)
-                self.set_tile(potential_tile[0] + 1, potential_tile[1] + 1, 4, 0)
-                self.set_tile(potential_tile[0] + 1, potential_tile[1] + 0, 4, 0)
-                self.set_tile(potential_tile[0] + 0, potential_tile[1] + 1, 4, 0)
+                self.set_tile(potential_tile[0] + 0, potential_tile[1] + 0, 11, 0)
+                self.set_tile(potential_tile[0] + 1, potential_tile[1] + 1, 11, 0)
+                self.set_tile(potential_tile[0] + 1, potential_tile[1] + 0, 11, 0)
+                self.set_tile(potential_tile[0] + 0, potential_tile[1] + 1, 11, 0)
 
                 generate_enemy(main, potential_tile[0] * TILE_SIZE, potential_tile[1] * TILE_SIZE)
 
@@ -128,7 +145,7 @@ class DungeonRoom():
         #Remove Special Tiles
         for r in range(self.room_height):
             for c in range(self.room_width):
-                if (self.tiles[r][c] == 4):
+                if (self.tiles[r][c] == 11):
                     self.set_tile(c, r, 0, 0)
 
                 
