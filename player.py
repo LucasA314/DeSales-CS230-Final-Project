@@ -16,7 +16,7 @@ from game_over_menu import obj_Game_Over_Menu
 
 class Player(core.Object):
     def __init__(self, name, ch_class, skills):
-        core.Object.__init__(self, "spr_player_right", 1, True)
+        core.Object.__init__(self, "spr_player_right", 24, True)
         
         self.name = name
         self.character_class = ch_class
