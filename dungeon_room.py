@@ -481,11 +481,15 @@ def select_room_template():
 
 
 def generate_enemy(main, x, y):
-    enemies = ['Blob']
+    enemies = ['Blob', 'Bat', 'Spike']
 
     enemy_index = random.randint(0, len(enemies) - 1)
 
     if enemy_index == 0:
         instance_create(main, x, y, enemy.obj_Blob())
+    elif (enemy_index  == 1):
+        instance_create(main, x, y, enemy.obj_Bat())
+    elif (enemy_index  == 2):
+        instance_create(main, x, y, enemy.obj_Spike())
     
     

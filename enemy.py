@@ -1,5 +1,6 @@
 
 import core
+import constants
 import gold
 import random
 
@@ -10,8 +11,8 @@ class obj_Enemy(core.Object):
         
 
     def create(self, main):
-        self.vsp = 0
-        self.hsp = 0
+        self.speed = 0
+        self.speed = 0
 
         self.walkspeed = 0
 
@@ -138,3 +139,138 @@ class obj_Blob(obj_Enemy):
 
         self.hp = 10
         self.damage = 5
+
+
+class obj_Bat(obj_Enemy):
+    def __init__(self):
+        obj_Enemy.__init__(self, "spr_bat", 1)
+
+    def create(self, main):
+        obj_Enemy.create(self, main)
+
+        self.hp = 10
+        self.damage = 5
+
+        self.timer = 0
+        self.max_timer = 180
+
+        self.h_move = 0
+        self.v_move = 0
+
+    def update(self, main):
+        obj_Enemy.update(self, main)
+
+        if (main.current_room != -1):
+            if (self.timer > 0):
+                self.timer -= 1
+            else:
+                self.timer = self.max_timer
+                self.h_move = random.randint(-2, 2)
+                self.v_move = random.randint(-2, 2)
+
+            self.x = max(32, min(self.x + self.h_move, main.current_room.room_width * constants.TILE_SIZE - 32))
+            self.y = max(32, min(self.y + self.v_move, main.current_room.room_height * constants.TILE_SIZE - 32))
+
+            
+
+
+class obj_Spike(obj_Enemy):
+    def __init__(self):
+        obj_Enemy.__init__(self, "spr_spike", 1)
+
+    def create(self, main):
+        obj_Enemy.create(self, main)
+
+        self.hp = 25
+        self.damage = 10
+
+        self.directions = ['h', 'v']
+        self.direction = self.directions[random.randint(0, 1)]
+        
+        self.speed = 0
+        self.move_speed = 8
+
+        self.timer = 0
+        self.max_timer = 240
+
+    def update(self, main):
+        obj_Enemy.update(self, main)
+
+        if (self.timer > 0):
+            self.timer -= 1
+        elif (self.speed == 0):
+            self.timer = self.max_timer
+            self.speed = self.move_speed
+
+        if (self.direction == 'h'):
+            #Horizontal Collisions
+                if (self.speed > 0):
+                    collision_found = False
+                    i = 1
+
+                    while (i < 32 and not collision_found):
+
+                        if (core.tile_at_coord(main.current_room.movement, self.x + 32 + self.speed, self.y + i) == 1):
+                            while (core.tile_at_coord(main.current_room.movement, self.x + 32 + 1, self.y + i) == 0):
+                                self.x += 1
+
+                            collision_found = True
+                            self.speed = 0
+                            self.move_speed *= -1
+
+                            
+                        i += 1
+                        
+                elif (self.speed < 0):
+                    collision_found = False
+                    i = 1
+
+                    while (i < 32 and not collision_found):
+
+                        if (core.tile_at_coord(main.current_room.movement, self.x + self.speed, self.y + i) == 1):
+                            while (core.tile_at_coord(main.current_room.movement, self.x - 1, self.y + i) == 0):
+                                self.x -= 1
+                            
+                            collision_found = True
+                            self.speed = 0
+                            self.move_speed *= -1
+
+                        i += 1
+                
+                self.x += self.speed
+            
+        else:
+            #Vertical Collisions
+            if (self.speed > 0):
+                collision_found = False
+                i = 1
+
+                while (i < 32 and not collision_found):
+
+                    if (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + 32 + self.speed) == 1):
+                        while (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + 32 + 1) == 0):
+                            self.y += 1
+                            
+                        collision_found = True
+                        self.speed = 0
+                        self.move_speed *= -1
+
+                    i += 1
+
+            elif (self.speed < 0):
+                collision_found = False
+                i = 1
+
+                while (i < 32 and not collision_found):
+
+                    if (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + self.speed) == 1):
+                        while (core.tile_at_coord(main.current_room.movement, self.x + i, self.y - 1) == 0):
+                            self.y -= 1
+                        
+                        collision_found = True
+                        self.speed = 0
+                        self.move_speed *= -1
+                    
+                    i += 1
+            
+            self.y += self.speed

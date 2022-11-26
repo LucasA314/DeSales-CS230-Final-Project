@@ -9,6 +9,8 @@ from enum import Enum
 from enum import auto
 
 
+TILE_SIZE = 16
+
 # Font Constants
 '''
 	All constants required for the custom font and text display system.
