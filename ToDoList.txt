@@ -15,6 +15,5 @@ Test with Raspberry Pi
 
 Misc
 -------
-Add Music (Sam & Lucas)
 Get Better Graphics (Gabby)
 Make and Practice Presentation (All)

@@ -148,4 +148,4 @@ MUSIC_LOOP_SEGMENT   = 1
 SNG_NULL = ['snd_null' , 'snd_null']
 SNG_TITLE = [NULL_MUSIC_SEGMENT, 'snd_menu']
 SNG_DUNGEON = [NULL_MUSIC_SEGMENT, 'snd_dungeon']
-SNG_GAME_OVER = ['snd_null' , 'snd_null']
+SNG_GAME_OVER = [NULL_MUSIC_SEGMENT , 'snd_game_over']
