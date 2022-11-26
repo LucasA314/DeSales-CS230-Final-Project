@@ -1,6 +1,7 @@
 import core
 import constants
 import music_core
+from skill_select_menu import obj_Skill_Select_Menu
 
 class obj_Title_Menu(core.Object):
     def __init__(self, main):
@@ -35,7 +36,7 @@ class obj_Title_Menu(core.Object):
 
             if (self.option == 0):
         
-                core.instance_create(main, 0, 0, obj_Class_Select_Menu(main))
+                core.instance_create(main, 0, 0, obj_Skill_Select_Menu(main))
                 core.instance_destroy(main, self.menu)
                 core.instance_destroy(main, self)
             else:

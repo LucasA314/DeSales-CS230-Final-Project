@@ -151,7 +151,7 @@ class MainManager():
         self.textbox.visible = False
 
         #Define Skill Info
-        self.selected_class = "Warrior"
+        self.selected_class = "warrior"
         self.selected_skills = []
 
         #Read in High Score
@@ -254,7 +254,7 @@ def engine_main():
     pygame.display.set_icon(logo)
     
     #Set the Window Title
-    pygame.display.set_caption('CS230 Project')
+    pygame.display.set_caption('Session 0')
     
     #Create a Surface on the Screen
     screen = pygame.display.set_mode((640, 360), pygame.RESIZABLE)
