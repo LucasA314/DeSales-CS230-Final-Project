@@ -110,7 +110,5 @@ def audio_play_sfx(main ,snd, loops):
 		if (not main.channels[i].get_busy()):
 			if loops:
 				main.channels[i].play(sfx, loops=-1, fade_ms=0)
-				#pygame.mixer.Channel(0).play(sfx, loops=-1, fade_ms=0)
 			else:
 				main.channels[i].play(sfx, loops=0, fade_ms=0)
-				#pygame.mixer.Channel(0).play(sfx, loops=0, fade_ms=0)
