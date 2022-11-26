@@ -1,4 +1,5 @@
 import core
+import music_core
 from class_select_menu import obj_Class_Select_Menu
 
 class obj_Title_Menu(core.Object):
@@ -17,6 +18,8 @@ class obj_Title_Menu(core.Object):
             main.im.up = False
             main.im.down = False
 
+            music_core.audio_play_sfx(main, "sfx_menu_move", False)
+
             if (self.option == 0):
                 self.option = 1
             else:
@@ -24,8 +27,12 @@ class obj_Title_Menu(core.Object):
 
         if (main.im.a):
             main.im.a = False
+            
+            music_core.audio_play_sfx(main, "sfx_menu_select", False)
 
             if (self.option == 0):
         
                 core.instance_create(main, 0, 0, obj_Class_Select_Menu())
                 core.instance_destroy(main, self)
+            else:
+                main.quit = False

@@ -3,6 +3,7 @@ THINGS TO DO FOR THE PROJECT
 
 Programming/Bug Fixing (Luke & Lucas)
 -----------
+Fix SFX Bugs
 Extra Code As Needed for Other Features
 
 
@@ -14,6 +15,6 @@ Test with Raspberry Pi
 
 Misc
 -------
-Add Music/SFX (Sam & Lucas)
+Add Music (Sam & Lucas)
 Get Better Graphics (Gabby)
 Make and Practice Presentation (All)

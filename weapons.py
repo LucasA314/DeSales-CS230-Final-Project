@@ -1,5 +1,6 @@
 from re import S
 import core
+import music_core
 
 class obj_Weapon(core.Object):
     def __init__(self):
@@ -11,6 +12,8 @@ class obj_Weapon(core.Object):
         self.remaining_frames = 60
 
         self.owner = -1
+
+        music_core.audio_play_sfx(main, "sfx_attack", False)
 
     def update(self, main):
         if (main.main_player == -1):

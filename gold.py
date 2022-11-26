@@ -1,4 +1,5 @@
 import core
+import music_core
 
 class obj_Gold(core.Object):
     def __init__(self, amount):
@@ -15,5 +16,7 @@ class obj_Gold(core.Object):
             main.main_player.gold += self.amount
 
             main.main_player.hud.update_ui(main)
+
+            music_core.audio_play_sfx(main, "sfx_gold", False)
 
             core.instance_destroy(main, self)

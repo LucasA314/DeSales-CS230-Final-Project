@@ -94,6 +94,8 @@ def display_room(screen, room, tiles, tile_size):
 #MainManager Class: Omnipotent Class that Gives Life to All Else        
 class MainManager():
     def __init__(self):
+        self.quit = False
+
         #Load all Sprites
         self.sprites = load_all_sprites()
         
@@ -151,6 +153,7 @@ class MainManager():
     def update(self):
         #Check if An Exit Needs to Be Created
         if (self.current_room != -1 and self.current_room.num_enemies == 0 and not self.current_room.exit_exists):
+            music_core.audio_play_sfx(self, "sfx_stairs_appear", False)
             self.current_room.create_exit()
 
         #Update Music
@@ -258,7 +261,11 @@ def engine_main():
     #Main Loop
     while running:
         #Update Frame Rate
-        time_delta = clock.tick(FRAME_RATE)/1000.0      
+        time_delta = clock.tick(FRAME_RATE)/1000.0
+
+        #Check for a Main Quit
+        if (main.quit):
+            running = False
 
 
         #Event Handling

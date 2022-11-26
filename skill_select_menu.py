@@ -1,4 +1,5 @@
 import core
+import music_core
 from active_skill import Skill
 
 class obj_Skill_Select_Menu(core.Object):
@@ -39,6 +40,8 @@ class obj_Skill_Select_Menu(core.Object):
         if (main.im.up):
             main.im.up = False
 
+            music_core.audio_play_sfx(main, "sfx_menu_move", False)
+
             if (self.option == 0):
                 self.option = 4
             else:
@@ -47,6 +50,8 @@ class obj_Skill_Select_Menu(core.Object):
         if (main.im.down):
             main.im.down = False
 
+            music_core.audio_play_sfx(main, "sfx_menu_move", False)
+
             if (self.option == 4):
                 self.option = 0
             else:
@@ -54,6 +59,8 @@ class obj_Skill_Select_Menu(core.Object):
 
         if (main.im.a):
             main.im.a = False
+
+            music_core.audio_play_sfx(main, "sfx_menu_select", False)
 
             if (main.selected_class == "warrior"):
                 if (self.skill == 1):

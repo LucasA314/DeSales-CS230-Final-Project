@@ -7,6 +7,7 @@ Created on Sun Sep 25 15:29:06 2022
 
 from constants import CENTER_LEFT, GAME_STATES
 import core
+import music_core
 from font_scripts import scr_place_object_text
 import weapons
 import dungeon_room as dr
@@ -180,6 +181,8 @@ class Player(core.Object):
 
             #Collision With Stairs
             if (core.tile_at_coord(main.current_room.tiles, self.x + 16, self.y + 16) == 2):
+                music_core.audio_play_sfx(main, "sfx_use_stairs", False)
+
                 main.current_room = dr.DungeonRoom(main, 40, 20, main.current_room.difficulty + 1)
 
                 self.goto_start_tile(main)

@@ -1,5 +1,6 @@
 
 import core
+import music_core
 import constants
 import gold
 import random
@@ -89,6 +90,8 @@ class obj_Enemy(core.Object):
 
                 self.iframes = 60
 
+                music_core.audio_play_sfx(main, "sfx_damage", False)
+
             #Deal Contact Damage
             if (main.main_player.iframes == 0 and core.scr_collision(self, main.main_player)):
                 
@@ -118,6 +121,8 @@ class obj_Enemy(core.Object):
                     main.main_player.iframes = 60
 
                     main.main_player.hud.update_ui(main)
+
+                    music_core.audio_play_sfx(main, "sfx_damage", False)
 
     
     def destroy(self, main):
