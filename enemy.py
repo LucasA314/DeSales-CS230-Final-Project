@@ -137,7 +137,7 @@ class obj_Enemy(core.Object):
 
 class obj_Blob(obj_Enemy):
     def __init__(self):
-        obj_Enemy.__init__(self, "spr_blob", 15)
+        obj_Enemy.__init__(self, "spr_blob", 18)
 
     def create(self, main):
         obj_Enemy.create(self, main)
@@ -181,7 +181,7 @@ class obj_Bat(obj_Enemy):
 
 class obj_Spike(obj_Enemy):
     def __init__(self):
-        obj_Enemy.__init__(self, "spr_spike", 1)
+        obj_Enemy.__init__(self, "spr_spike", 18)
 
     def create(self, main):
         obj_Enemy.create(self, main)
