@@ -3,8 +3,9 @@ from numpy import true_divide
 import core
 
 class Skill():
-    def __init__(self, main, n, t, c, a):
+    def __init__(self, main, n, dn, t, c, a):
         self.name = n
+        self.display_name = dn
         self.type = t
 
         self.cooldown = 0
