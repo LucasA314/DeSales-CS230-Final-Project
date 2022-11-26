@@ -146,6 +146,6 @@ MUSIC_LOOP_SEGMENT   = 1
 
 #Null Song
 SNG_NULL = ['snd_null' , 'snd_null']
-SNG_TITLE = ['snd_null' , 'snd_null']
-SNG_DUNGEON = ['snd_null' , 'snd_null']
+SNG_TITLE = [NULL_MUSIC_SEGMENT, 'snd_menu']
+SNG_DUNGEON = [NULL_MUSIC_SEGMENT, 'snd_dungeon']
 SNG_GAME_OVER = ['snd_null' , 'snd_null']

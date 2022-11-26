@@ -1,4 +1,5 @@
 import core
+import constants
 import music_core
 from class_select_menu import obj_Class_Select_Menu
 
@@ -10,6 +11,8 @@ class obj_Title_Menu(core.Object):
     
     def create(self, main):
         self.option = 0
+
+        music_core.scr_set_song(main, constants.SNG_TITLE)
 
     def update(self, main):
         self.image_index = self.option

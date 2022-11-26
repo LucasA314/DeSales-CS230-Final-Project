@@ -80,6 +80,12 @@ class InputManager():
         self.a_pressed = False
         self.b = False
         self.b_pressed = False
+        self.x = False
+        self.x_pressed = False
+        self.y = False
+        self.y_pressed = False
+        self.z = False
+        self.z_pressed = False
         
         
 def tile_at_coord(movement_map, x_pos, y_pos):

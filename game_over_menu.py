@@ -1,5 +1,6 @@
 import core
-from constants import EVENTS_LIST, GAME_STATES
+import music_core
+from constants import EVENTS_LIST, GAME_STATES, SNG_GAME_OVER
 from title_menu import obj_Title_Menu
 
 class obj_Game_Over_Menu(core.Object):
@@ -9,6 +10,8 @@ class obj_Game_Over_Menu(core.Object):
         self.score = score
     
     def create(self, main):
+        music_core.scr_set_song(main, SNG_GAME_OVER)
+
         self.image_speed = 0
 
         messageToPrint = [[

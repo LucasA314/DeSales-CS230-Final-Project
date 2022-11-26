@@ -30,7 +30,6 @@ def scr_stop_song(main, song):
 
 	if audio_is_playing(main, song[MUSIC_INTRO_SEGMENT]):
 		audio_stop_sound()
-	
 	elif audio_is_playing(main, song[MUSIC_LOOP_SEGMENT]):
 		audio_stop_sound()
 
@@ -65,9 +64,10 @@ def scr_same_song(song1, song2):
 
 
 def scr_music_system(main, previous_song, current_song):
+	
 	#Check If the the Old Song Is Playing But Is Different From the Current One We Should Be Playing
 	if scr_song_is_playing(main, previous_song) and not scr_same_song(current_song, previous_song):
-	
+		
 		#Stop the Previous Song
 		scr_stop_song(main, previous_song)
 		
@@ -100,7 +100,7 @@ def audio_is_playing(main, snd):
 		return False
 	
 def audio_stop_sound():
-	pygame.mixer.music.fadeout(2)
+	pygame.mixer.music.fadeout(0)
 
 
 def audio_play_sfx(main ,snd, loops):

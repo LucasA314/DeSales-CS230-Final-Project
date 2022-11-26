@@ -1,4 +1,5 @@
 import core
+import constants
 import music_core
 from active_skill import Skill
 
@@ -103,4 +104,5 @@ class obj_Skill_Select_Menu(core.Object):
                 self.skill += 1
             else:
                 main.create_run()
+                music_core.scr_set_song(main, constants.SNG_DUNGEON)
                 core.instance_destroy(main, self)
