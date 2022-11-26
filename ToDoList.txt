@@ -3,7 +3,6 @@ THINGS TO DO FOR THE PROJECT
 
 Programming/Bug Fixing (Luke & Lucas)
 -----------
-Fix SFX Bugs
 Extra Code As Needed for Other Features
 
 

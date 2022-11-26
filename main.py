@@ -109,6 +109,11 @@ class MainManager():
         self.screen_xscale = 1
         self.screen_yscale = 1
 
+        self.channels = []
+
+        for i in range(8):
+            self.channels.append(pygame.mixer.Channel(i))
+
         #Load all Sprites
         self.sprites = load_all_sprites()
         
