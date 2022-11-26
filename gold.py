@@ -3,7 +3,7 @@ import music_core
 
 class obj_Gold(core.Object):
     def __init__(self, amount):
-        core.Object.__init__(self, "spr_gold", 1, True)
+        core.Object.__init__(self, "spr_gold", 3, True)
 
         self.amount = amount
 
