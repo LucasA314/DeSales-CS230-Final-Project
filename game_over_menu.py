@@ -3,6 +3,8 @@ import music_core
 from constants import EVENTS_LIST, GAME_STATES, SNG_GAME_OVER
 from title_menu import obj_Title_Menu
 
+import os
+
 class obj_Game_Over_Menu(core.Object):
     def __init__(self, main, score):
         core.Object.__init__(self, main, "spr_game_over_menu", 1, True)
@@ -30,7 +32,8 @@ class obj_Game_Over_Menu(core.Object):
             main.high_score = self.score
             
             #Write the High Score
-            score_file = open("score.dat", "w")
+            cp = os.path.dirname(__file__)
+            score_file = open(os.path.join(cp, "score.dat"), "w")
             score_file.write(str(main.high_score))
             score_file.close()
 

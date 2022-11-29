@@ -30,10 +30,11 @@ def load_sprite(sprite_path):
     sprite = []
     exists = True
     tile_num = 0
+    cp = os.path.dirname(__file__)
     
     while exists:
-        if os.path.isfile(os.path.join('images', sprite_path, 'tile' + convert_to_three_digits(tile_num) + '.png')):
-            sprite.append(pygame.image.load(os.path.join('images', sprite_path, 'tile' + convert_to_three_digits(tile_num) + '.png')))
+        if os.path.isfile(os.path.join(cp, 'images', sprite_path, 'tile' + convert_to_three_digits(tile_num) + '.png')):
+            sprite.append(pygame.image.load(os.path.join(cp, 'images', sprite_path, 'tile' + convert_to_three_digits(tile_num) + '.png')))
             tile_num += 1
         else:
             exists = False
@@ -54,8 +55,9 @@ def convert_to_three_digits(num):
 #Load All Sprites Function
 def load_all_sprites():
     sprites = {}
+    cp = os.path.dirname(__file__)
 
-    with os.scandir("images") as it:
+    with os.scandir(os.path.join(cp, "images")) as it:
         for entry in it:
             sprites[entry.name] = load_sprite(entry.name)
 
@@ -104,6 +106,7 @@ def display_room(screen, room, tiles, tile_size):
 class MainManager():
     def __init__(self):
         self.quit = False
+        self.cp = ""
 
         self.screen_width = 640
         self.screen_height = 360
@@ -119,8 +122,10 @@ class MainManager():
         #Load all Sprites
         self.sprites = load_all_sprites()
         
+        cp = os.path.dirname(__file__)
+        
         #Load Tilesets
-        self.basic_tilemap_image = pygame.image.load(os.path.join('tilesets', 'til_fancy_tiles.png'))
+        self.basic_tilemap_image = pygame.image.load(os.path.join(cp, 'tilesets', 'til_fancy_tiles.png'))
         self.basic_tiles = strip_from_sheet(self.basic_tilemap_image, (0, 0), (core.TILE_SIZE, core.TILE_SIZE), 4, 3)
         
         #Create an Input Manager
@@ -155,7 +160,7 @@ class MainManager():
         self.selected_skills = []
 
         #Read in High Score
-        score_file = open("score.dat", "r")
+        score_file = open(os.path.join(cp,"score.dat"), "r")
         self.high_score = int(score_file.readline())
         score_file.close()
 
@@ -250,7 +255,9 @@ def engine_main():
     pygame.init()
     
     #Set the Icon
-    logo = pygame.image.load("images/logo.png")
+    cp = os.path.dirname(__file__)
+
+    logo = pygame.image.load(os.path.join(cp, "images/logo.png"))
     pygame.display.set_icon(logo)
     
     #Set the Window Title
@@ -277,6 +284,7 @@ def engine_main():
     
     #Create the Manager
     main = MainManager()
+    main.cp = cp
     
     #Main Loop
     while running:

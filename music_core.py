@@ -2,6 +2,7 @@ from constants import *
 from core import *
 
 import pygame
+import os
 
 #Song Functions
 
@@ -75,7 +76,10 @@ def scr_music_system(main, previous_song, current_song):
 		main = audio_play_sound(main, current_song[MUSIC_LOOP_SEGMENT], True)
 
 def audio_play_sound(main, snd, loops):
-		pygame.mixer.music.load('audio/' + snd + '/' + snd + '.wav')
+		
+		cp = os.path.dirname(__file__)
+		
+		pygame.mixer.music.load(os.path.join(cp, 'audio/' + snd + '/' + snd + '.wav'))
 		
 		if loops:
 			pygame.mixer.music.play(loops=-1, fade_ms=5)
@@ -97,11 +101,13 @@ def audio_stop_sound():
 
 
 def audio_play_sfx(main ,snd, loops):
-	sfx = pygame.mixer.Sound('audio/' + snd + '/' + snd + '.wav')
+    cp = os.path.dirname(__file__)
+    
+    sfx = pygame.mixer.Sound(os.path.join(cp, 'audio/' + snd + '/' + snd + '.wav'))
 
-	for i in range(len(main.channels)):
-		if (not main.channels[i].get_busy()):
-			if loops:
-				main.channels[i].play(sfx, loops=-1, fade_ms=0)
-			else:
-				main.channels[i].play(sfx, loops=0, fade_ms=0)
+    for i in range(len(main.channels)):
+        if (not main.channels[i].get_busy()):
+            if loops:
+                main.channels[i].play(sfx, loops=-1, fade_ms=0)
+            else:
+                main.channels[i].play(sfx, loops=0, fade_ms=0)
