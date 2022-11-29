@@ -6,6 +6,8 @@ from enum import auto
 '''
 
 '''
+FRAME_RATE = 30
+
 TILE_SIZE = 16
 BASE_WIDTH = 640
 BASE_HEIGHT = 360

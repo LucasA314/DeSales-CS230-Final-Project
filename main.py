@@ -18,8 +18,6 @@ import textbox_objects
 import title_menu
 import dungeon_room as dr
 
-#Constants
-FRAME_RATE = 60
 
 '''
 FUNCTIONS
@@ -107,9 +105,10 @@ class MainManager():
     def __init__(self):
         self.quit = False
         self.cp = ""
+        self.true_frames = FRAME_RATE
 
-        self.screen_width = 640
-        self.screen_height = 360
+        self.screen_width = BASE_WIDTH
+        self.screen_height = BASE_HEIGHT
 
         self.screen_xscale = 1
         self.screen_yscale = 1
@@ -264,7 +263,7 @@ def engine_main():
     pygame.display.set_caption('Session 0')
     
     #Create a Surface on the Screen
-    screen = pygame.display.set_mode((640, 360), pygame.RESIZABLE)
+    screen = pygame.display.set_mode((BASE_WIDTH, BASE_HEIGHT), pygame.RESIZABLE)
     
     #Create a Background Fill
     screen.fill(pygame.Color('#000000'))
@@ -290,6 +289,8 @@ def engine_main():
     while running:
         #Update Frame Rate
         time_delta = clock.tick(FRAME_RATE)/1000.0
+
+        main.true_frames = int(clock.get_fps())
 
         #Check for a Main Quit
         if (main.quit):

@@ -85,7 +85,7 @@ class obj_Enemy(core.Object):
 
                 self.hp -= damage_amount
 
-                self.iframes = 60
+                self.iframes = 1 * constants.FRAME_RATE
 
                 music_core.audio_play_sfx(main, "sfx_damage", False)
 
@@ -101,7 +101,7 @@ class obj_Enemy(core.Object):
                         main.main_player.counter_attacking = False
                         
                         self.hp -= self.damage * 1.25
-                        self.iframes = 60
+                        self.iframes = 1 * constants.FRAME_RATE
                         
                         damage_amount *= 0.5
                     elif (main.main_player.charging):
@@ -110,12 +110,12 @@ class obj_Enemy(core.Object):
                         main.main_player.get_skill("charge").cooldown = main.main_player.get_skill("charge").max_cooldown
 
                         self.hp -= main.main_player.damage
-                        self.iframes = 60
-                        main.main_player.iframes = 60
+                        self.iframes = 1 * constants.FRAME_RATE
+                        main.main_player.iframes = 1 * constants.FRAME_RATE
 
                     main.main_player.health = max(0, main.main_player.health - damage_amount)
 
-                    main.main_player.iframes = 60
+                    main.main_player.iframes = 1 * constants.FRAME_RATE
 
                     main.main_player.hud.update_ui(main)
 

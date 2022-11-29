@@ -52,37 +52,37 @@ class obj_Skill_Select_Menu(core.Object):
 
             if (self.skill == 1):
                 if (self.option == 0):
-                    main.selected_skills.append(Skill(main, "whirlwind", "Whirlwind", "Active", 5 * 60, 0))
+                    main.selected_skills.append(Skill(main, "whirlwind", "Whirlwind", "Active", 5 * constants.FRAME_RATE, 0))
                 elif (self.option == 1):
-                    main.selected_skills.append(Skill(main, "charge", "Charge", "Active", 10 * 60, 0))
+                    main.selected_skills.append(Skill(main, "charge", "Charge", "Active", 10 * constants.FRAME_RATE, 0))
                 elif (self.option == 2):
                     main.selected_skills.append(Skill(main, "headhunter", "Headhunter", "Passive", 0, 0))
                 elif (self.option == 3):
-                    main.selected_skills.append(Skill(main, "rage", "Rage", "Active", 30 * 60, 10 * 60))
+                    main.selected_skills.append(Skill(main, "rage", "Rage", "Active", 30 * constants.FRAME_RATE, 10 * constants.FRAME_RATE))
                 elif (self.option == 4):
-                    main.selected_skills.append(Skill(main, "slam", "Slam", "Active", 7 * 60, 0))
+                    main.selected_skills.append(Skill(main, "slam", "Slam", "Active", 7 * constants.FRAME_RATE, 0))
             elif (self.skill == 2):
                 if (self.option == 0):
-                    main.selected_skills.append(Skill(main, "shield_bash", "Shield Bash", "Active", 12 * 60, 0))
+                    main.selected_skills.append(Skill(main, "shield_bash", "Shield Bash", "Active", 12 * constants.FRAME_RATE, 0))
                 elif (self.option == 1):
                     main.selected_skills.append(Skill(main, "victory_rush", "Victory Rush", "Passive", 0, 0))
                 elif (self.option == 2):
                     main.selected_skills.append(Skill(main, "relentless", "Relentless", "Passive", 0, 0))
                 elif (self.option == 3):
-                    main.selected_skills.append(Skill(main, "heroic_strike", "Heroic Strike", "Passive", 5 * 60, 0))
+                    main.selected_skills.append(Skill(main, "heroic_strike", "Heroic Strike", "Passive", 5 * constants.FRAME_RATE, 0))
                 elif (self.option == 4):
-                    main.selected_skills.append(Skill(main, "blood_strike", "Blood Strike", "Active", 1 * 60, 0))
+                    main.selected_skills.append(Skill(main, "blood_strike", "Blood Strike", "Active", 1 * constants.FRAME_RATE, 0))
             elif (self.skill == 3):
                 if (self.option == 0):
                     main.selected_skills.append(Skill(main, "berserking", "Berserking", "Passive", 0, 0))
                 elif (self.option == 1):
                     main.selected_skills.append(Skill(main, "recklessness", "Recklessness", "Passive", 0, 0))
                 elif (self.option == 2):
-                    main.selected_skills.append(Skill(main, "shield_block", "Shield Block", "Active", 8 * 60, 2 * 60))
+                    main.selected_skills.append(Skill(main, "shield_block", "Shield Block", "Active", 8 * constants.FRAME_RATE, 2 * constants.FRAME_RATE))
                 elif (self.option == 3):
-                    main.selected_skills.append(Skill(main, "ravage", "Ravage", "Active", 6 * 60, 2 * 60))
+                    main.selected_skills.append(Skill(main, "ravage", "Ravage", "Active", 6 * constants.FRAME_RATE, 2 * constants.FRAME_RATE))
                 elif (self.option == 4):
-                    main.selected_skills.append(Skill(main, "counter_attack", "Counter Attack", "Active", 5 * 60, 5 * 60))
+                    main.selected_skills.append(Skill(main, "counter_attack", "Counter Attack", "Active", 5 * constants.FRAME_RATE, 5 * constants.FRAME_RATE))
 
 
 
