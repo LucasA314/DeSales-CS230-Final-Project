@@ -182,7 +182,6 @@ class Player(core.Object):
 
             #Attacking
             if (self.hsp == 0 and self.vsp == 0 and not self.attacking and main.sub_state != GAME_STATES.DIALOGUE.value):
-                
 
                 #Main Attack
                 if (main.im.b_pressed):

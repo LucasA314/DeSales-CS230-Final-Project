@@ -313,7 +313,59 @@ def engine_main():
             
             #Event: INPUT
             if (len(joysticks) > 0):
+                if event.type==pygame.JOYAXISMOTION:
+                    #LEFT
+                    if (joysticks[0].get_axis(0) < -0.9):
+                        main.im.right = 0
+                        main.im.right_pressed = 0
+
+                        if main.im.left != 1:
+                            main.im.left_pressed = 1
+                        
+                        main.im.left = 1
+
+                    #RIGHT
+                    elif (joysticks[0].get_axis(0) > 0.9):
+                        main.im.left = 0
+                        main.im.left_pressed = 0
+
+                        if main.im.right != 1:
+                            main.im.right_pressed = 1
+                        
+                        main.im.right = 1
+                    else:
+                        main.im.left = 0
+                        main.im.left_pressed = 0
+                        main.im.right = 0
+                        main.im.right_pressed = 0
+
+                    #UP
+                    if (joysticks[0].get_axis(1) < -0.9):
+                        main.im.down = 0
+                        main.im.down_pressed = 0
+
+                        if main.im.up != 1:
+                            main.im.up_pressed = 1
+                        
+                        main.im.up = 1
+
+                    #DOWN
+                    elif (joysticks[0].get_axis(1) > 0.9):
+                        main.im.up = 0
+                        main.im.up_pressed = 0
+
+                        if main.im.down != 1:
+                            main.im.down_pressed = 1
+                        
+                        main.im.down = 1
+                    else:
+                        main.im.up = 0
+                        main.im.up_pressed = 0
+                        main.im.down = 0
+                        main.im.down_pressed = 0
+
                 if event.type==pygame.JOYBUTTONDOWN:
+                    #LEFT
                     if event.button == 13:
                         if main.im.left != 1:
                             main.im.left_pressed = 1
@@ -323,6 +375,7 @@ def engine_main():
                         main.im.left = 0
                         main.im.left_pressed = 0
 
+                    #RIGHT
                     if event.button == 14:
                         if main.im.right != 1:
                             main.im.right_pressed = 1
@@ -332,6 +385,7 @@ def engine_main():
                         main.im.right = 0
                         main.im.right_pressed = 0
 
+                    #UP
                     if event.button == 11:
                         if main.im.up != 1:
                             main.im.up_pressed = 1
@@ -341,6 +395,7 @@ def engine_main():
                         main.im.up = 0
                         main.im.up_pressed = 0
 
+                    #DOWN
                     if event.button == 12:
                         if main.im.down != 1:
                             main.im.down_pressed = 1
@@ -414,6 +469,30 @@ def engine_main():
                     if event.button == 12:
                         main.im.down_pressed = 0
                         main.im.down = 0
+
+                    #A
+                    if event.button==0:
+                        main.im.a = 0
+                        main.im.a_pressed = 0
+                    #B
+                    if event.button==1:
+                        main.im.b = 0
+                        main.im.b_pressed = 0
+
+                    #X
+                    if event.button==2:
+                        main.im.x = 0
+                        main.im.x_pressed = 0
+
+                    #Y
+                    if event.button==3:
+                        main.im.y = 0
+                        main.im.y_pressed = 0
+
+                    #Z
+                    if event.button==9:
+                        main.im.z = 0
+                        main.im.z_pressed = 0
             else:
                 if event.type==pygame.KEYDOWN:
                     if event.key==pygame.K_LEFT:
