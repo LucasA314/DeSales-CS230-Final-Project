@@ -82,9 +82,9 @@ def audio_play_sound(main, snd, loops):
 		pygame.mixer.music.load(os.path.join(cp, 'audio/' + snd + '/' + snd + '.wav'))
 		
 		if loops:
-			pygame.mixer.music.play(loops=-1, fade_ms=5)
+			pygame.mixer.music.play(loops=-1)
 		else:
-			pygame.mixer.music.play(loops=0, fade_ms=5)
+			pygame.mixer.music.play(loops=0)
 			
 		main.currently_playing = snd
 	
@@ -108,6 +108,6 @@ def audio_play_sfx(main ,snd, loops):
     for i in range(len(main.channels)):
         if (not main.channels[i].get_busy()):
             if loops:
-                main.channels[i].play(sfx, loops=-1, fade_ms=0)
+                main.channels[i].play(sfx, loops=-1)
             else:
-                main.channels[i].play(sfx, loops=0, fade_ms=0)
+                main.channels[i].play(sfx, loops=0)
