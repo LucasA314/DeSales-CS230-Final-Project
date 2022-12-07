@@ -209,91 +209,93 @@ class obj_Spike(obj_Enemy):
     def update(self, main):
         obj_Enemy.update(self, main)
 
-        if (self.timer > 0):
-            self.timer -= 1
-        elif (self.speed == 0):
-            self.timer = self.max_timer
-            self.speed = self.move_speed
+        if (main.current_room == -1):
+            core.instance_destroy(main, self)
+        else:
+            if (self.timer > 0):
+                self.timer -= 1
+            elif (self.speed == 0):
+                self.timer = self.max_timer
+                self.speed = self.move_speed
 
-        if (self.direction == 'h'):
-            #Horizontal Collisions
+            if (self.direction == 'h'):
+                #Horizontal Collisions
+                    if (self.speed > 0):
+                        collision_found = False
+                        i = 1
+
+                        while (i < 32 and not collision_found):
+                            if (core.tile_at_coord(main.current_room.movement, self.x + 32 + self.speed, self.y + i) == 1):
+                                while (core.tile_at_coord(main.current_room.movement, self.x + 32 + 1, self.y + i) == 0):
+                                    self.x += 1
+
+                                collision_found = True
+                                self.speed = 0
+                                self.move_speed *= -1
+
+                                
+                            i += 1
+                            
+                    elif (self.speed < 0):
+                        collision_found = False
+                        i = 1
+
+                        while (i < 32 and not collision_found):
+
+                            if (core.tile_at_coord(main.current_room.movement, self.x + self.speed, self.y + i) == 1):
+                                while (core.tile_at_coord(main.current_room.movement, self.x - 1, self.y + i) == 0):
+                                    self.x -= 1
+                                
+                                collision_found = True
+                                self.speed = 0
+                                self.move_speed *= -1
+
+                            i += 1
+                    
+                    self.x += self.speed
+
+                    if (self.speed > 0):
+                        self.image_xscale = 1
+                    elif (self.speed < 0):
+                        self.image_xscale = -1
+                
+            else:
+                #Vertical Collisions
                 if (self.speed > 0):
                     collision_found = False
                     i = 1
 
                     while (i < 32 and not collision_found):
 
-                        if (core.tile_at_coord(main.current_room.movement, self.x + 32 + self.speed, self.y + i) == 1):
-                            while (core.tile_at_coord(main.current_room.movement, self.x + 32 + 1, self.y + i) == 0):
-                                self.x += 1
-
+                        if (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + 32 + self.speed) == 1):
+                            while (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + 32 + 1) == 0):
+                                self.y += 1
+                                
                             collision_found = True
                             self.speed = 0
                             self.move_speed *= -1
 
-                            
                         i += 1
-                        
+
                 elif (self.speed < 0):
                     collision_found = False
                     i = 1
 
                     while (i < 32 and not collision_found):
 
-                        if (core.tile_at_coord(main.current_room.movement, self.x + self.speed, self.y + i) == 1):
-                            while (core.tile_at_coord(main.current_room.movement, self.x - 1, self.y + i) == 0):
-                                self.x -= 1
+                        if (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + self.speed) == 1):
+                            while (core.tile_at_coord(main.current_room.movement, self.x + i, self.y - 1) == 0):
+                                self.y -= 1
                             
                             collision_found = True
                             self.speed = 0
                             self.move_speed *= -1
-
+                        
                         i += 1
                 
-                self.x += self.speed
+                self.y += self.speed
 
                 if (self.speed > 0):
-                    self.image_xscale = 1
+                    self.image_yscale = 1
                 elif (self.speed < 0):
-                    self.image_xscale = -1
-            
-        else:
-            #Vertical Collisions
-            if (self.speed > 0):
-                collision_found = False
-                i = 1
-
-                while (i < 32 and not collision_found):
-
-                    if (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + 32 + self.speed) == 1):
-                        while (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + 32 + 1) == 0):
-                            self.y += 1
-                            
-                        collision_found = True
-                        self.speed = 0
-                        self.move_speed *= -1
-
-                    i += 1
-
-            elif (self.speed < 0):
-                collision_found = False
-                i = 1
-
-                while (i < 32 and not collision_found):
-
-                    if (core.tile_at_coord(main.current_room.movement, self.x + i, self.y + self.speed) == 1):
-                        while (core.tile_at_coord(main.current_room.movement, self.x + i, self.y - 1) == 0):
-                            self.y -= 1
-                        
-                        collision_found = True
-                        self.speed = 0
-                        self.move_speed *= -1
-                    
-                    i += 1
-            
-            self.y += self.speed
-
-            if (self.speed > 0):
-                self.image_yscale = 1
-            elif (self.speed < 0):
-                self.image_yscale = -1
+                    self.image_yscale = -1
