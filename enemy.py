@@ -50,7 +50,7 @@ class obj_Enemy(core.Object):
             if (main.player_weapon != -1 and self.iframes == 0 and core.scr_collision(self, main.player_weapon)):
 
                 if (main.main_player.have_skill("relentless")):
-                    main.main_player.reduce_cooldown(0.5)
+                    main.main_player.reduce_cooldowns(0.5)
 
                 damage_amount = main.main_player.damage
 
